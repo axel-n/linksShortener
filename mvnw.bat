@@ -35,8 +35,6 @@
 
 @REM Begin all REM lines with '@' in case MAVEN_BATCH_ECHO is 'on'
 @echo off
-@REM set title of command window
-title %0
 @REM enable echoing my setting MAVEN_BATCH_ECHO to 'on'
 @if "%MAVEN_BATCH_ECHO%" == "on"  echo %MAVEN_BATCH_ECHO%
 
@@ -68,7 +66,7 @@ echo.
 goto error
 
 :OkJHome
-if exist "%JAVA_HOME%\bin\java.exe" goto init
+if exist "%JAVA_HOME%\bin\java.exe" goto chkMHome
 
 echo.
 echo Error: JAVA_HOME is set to an invalid directory. >&2
@@ -78,9 +76,41 @@ echo location of your Java installation. >&2
 echo.
 goto error
 
+:chkMHome
+if not "%M2_HOME%"=="" goto valMHome
+
+SET "M2_HOME=%~dp0.."
+if not "%M2_HOME%"=="" goto valMHome
+
+echo.
+echo Error: M2_HOME not found in your environment. >&2
+echo Please set the M2_HOME variable in your environment to match the >&2
+echo location of the Maven installation. >&2
+echo.
+goto error
+
+:valMHome
+
+:stripMHome
+if not "_%M2_HOME:~-1%"=="_\" goto checkMCmd
+set "M2_HOME=%M2_HOME:~0,-1%"
+goto stripMHome
+
+:checkMCmd
+if exist "%M2_HOME%\bin\mvn.cmd" goto init
+
+echo.
+echo Error: M2_HOME is set to an invalid directory. >&2
+echo M2_HOME = "%M2_HOME%" >&2
+echo Please set the M2_HOME variable in your environment to match the >&2
+echo location of the Maven installation >&2
+echo.
+goto error
 @REM ==== END VALIDATION ====
 
 :init
+
+set MAVEN_CMD_LINE_ARGS=%*
 
 @REM Find the project base dir, i.e. the directory that contains the folder ".mvn".
 @REM Fallback to current working directory if not found.
@@ -117,27 +147,13 @@ for /F "usebackq delims=" %%a in ("%MAVEN_PROJECTBASEDIR%\.mvn\jvm.config") do s
 :endReadAdditionalConfig
 
 SET MAVEN_JAVA_EXE="%JAVA_HOME%\bin\java.exe"
-set WRAPPER_JAR="%MAVEN_PROJECTBASEDIR%\.mvn\wrapper\maven-wrapper.jar"
+
+for %%i in ("%M2_HOME%"\boot\plexus-classworlds-*) do set CLASSWORLDS_JAR="%%i"
+
+set WRAPPER_JAR="".\.mvn\wrapper\maven-wrapper.jar""
 set WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
 
-set DOWNLOAD_URL="https://repo.maven.apache.org/maven2/io/takari/maven-wrapper/0.4.2/maven-wrapper-0.4.2.jar"
-FOR /F "tokens=1,2 delims==" %%A IN (%MAVEN_PROJECTBASEDIR%\.mvn\wrapper\maven-wrapper.properties) DO (
-	IF "%%A"=="wrapperUrl" SET DOWNLOAD_URL=%%B 
-)
-
-@REM Extension to allow automatically downloading the maven-wrapper.jar from Maven-central
-@REM This allows using the maven wrapper in projects that prohibit checking in binary data.
-if exist %WRAPPER_JAR% (
-    echo Found %WRAPPER_JAR%
-) else (
-    echo Couldn't find %WRAPPER_JAR%, downloading it ...
-	echo Downloading from: %DOWNLOAD_URL%
-    powershell -Command "(New-Object Net.WebClient).DownloadFile('%DOWNLOAD_URL%', '%WRAPPER_JAR%')"
-    echo Finished downloading %WRAPPER_JAR%
-)
-@REM End of extension
-
-%MAVEN_JAVA_EXE% %JVM_CONFIG_MAVEN_PROPS% %MAVEN_OPTS% %MAVEN_DEBUG_OPTS% -classpath %WRAPPER_JAR% "-Dmaven.multiModuleProjectDirectory=%MAVEN_PROJECTBASEDIR%" %WRAPPER_LAUNCHER% %MAVEN_CONFIG% %*
+%MAVEN_JAVA_EXE% %JVM_CONFIG_MAVEN_PROPS% %MAVEN_OPTS% %MAVEN_DEBUG_OPTS% -classpath %WRAPPER_JAR% "-Dmaven.home=%M2_HOME%" "-Dmaven.multiModuleProjectDirectory=%MAVEN_PROJECTBASEDIR%" %WRAPPER_LAUNCHER% %MAVEN_CMD_LINE_ARGS%
 if ERRORLEVEL 1 goto error
 goto end
 

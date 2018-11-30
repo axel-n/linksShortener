@@ -26,3 +26,6 @@
 
 # js libraries
 node_modules
+
+# js compiled
+src/main/resources/static/built
