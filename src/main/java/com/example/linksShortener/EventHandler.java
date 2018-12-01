@@ -10,45 +10,45 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-@RepositoryEventHandler(Employee.class)
+@RepositoryEventHandler(Link.class)
 public class EventHandler {
 
-	private final SimpMessagingTemplate websocket;
+    private final SimpMessagingTemplate websocket;
 
-	private final EntityLinks entityLinks;
+    private final EntityLinks entityLinks;
 
-	@Autowired
-	public EventHandler(SimpMessagingTemplate websocket, EntityLinks entityLinks) {
-		this.websocket = websocket;
-		this.entityLinks = entityLinks;
-	}
+    @Autowired
+    public EventHandler(SimpMessagingTemplate websocket, EntityLinks entityLinks) {
+        this.websocket = websocket;
+        this.entityLinks = entityLinks;
+    }
 
-	@HandleAfterCreate
-	public void newEmployee(Employee employee) {
-		this.websocket.convertAndSend(
-				WebSocketConfiguration.MESSAGE_PREFIX + "/newEmployee", getPath(employee));
-	}
+    @HandleAfterCreate
+    public void newLink(Link link) {
+        this.websocket.convertAndSend(
+                WebSocketConfiguration.MESSAGE_PREFIX + "/newLink", getPath(link));
+    }
 
-	@HandleAfterDelete
-	public void deleteEmployee(Employee employee) {
-		this.websocket.convertAndSend(
-				WebSocketConfiguration.MESSAGE_PREFIX + "/deleteEmployee", getPath(employee));
-	}
+    @HandleAfterDelete
+    public void deleteLink(Link link) {
+        this.websocket.convertAndSend(
+                WebSocketConfiguration.MESSAGE_PREFIX + "/deleteLink", getPath(link));
+    }
 
-	@HandleAfterSave
-	public void updateEmployee(Employee employee) {
-		this.websocket.convertAndSend(
-				WebSocketConfiguration.MESSAGE_PREFIX + "/updateEmployee", getPath(employee));
-	}
+    @HandleAfterSave
+    public void updateLink(Link link) {
+        this.websocket.convertAndSend(
+                WebSocketConfiguration.MESSAGE_PREFIX + "/updateLink", getPath(link));
+    }
 
-	/**
-	 * Take an {@link Employee} and get the URI using Spring Data REST's {@link EntityLinks}.
-	 *
-	 * @param employee
-	 */
-	private String getPath(Employee employee) {
-		return this.entityLinks.linkForSingleResource(employee.getClass(),
-				employee.getId()).toUri().getPath();
-	}
+    /**
+     * Take an {@link Link} and get the URI using Spring Data REST's {@link EntityLinks}.
+     *
+     * @param link
+     */
+    private String getPath(Link link) {
+        return this.entityLinks.linkForSingleResource(link.getClass(),
+                link.getLongUrl()).toUri().getPath();
+    }
 
 }
