@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
+
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
@@ -16,7 +18,22 @@ public class DatabaseLoader implements CommandLineRunner {
 
 	public void run(String... strings) throws Exception {
 
-		this.repository.save(new Link("123", "ya.ru"));
-		this.repository.save(new Link("456", "google.com"));
+		// TODO
+		// добавить несколько попыток генерации коротких ссылок
+
+		this.repository.save(new Link(getShortUrl(), "ya.ru"));
+		this.repository.save(new Link(getShortUrl(), "google.com"));
+	}
+
+	private String getShortUrl() {
+		String possibleCharacters = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
+		StringBuilder idBuilder = new StringBuilder();
+		Random rnd = new Random();
+		while (idBuilder.length() < 5) {
+			int index = (int) (rnd.nextFloat() * possibleCharacters.length());
+			idBuilder.append(possibleCharacters.charAt(index));
+		}
+
+		return idBuilder.toString();
 	}
 }
