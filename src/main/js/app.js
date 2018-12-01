@@ -5,7 +5,7 @@ const ReactDOM = require('react-dom');
 const when = require('when');
 const client = require('./client');
 
-const follow = require('./follow'); // function to hop multiple links by "rel"
+const follow = require('./follow'); // function to hop multiple _links by "rel"
 
 const stompClient = require('./websocket-listener');
 
@@ -116,7 +116,7 @@ class App extends React.Component {
 				links: links,
 				attributes: Object.keys(this.schema.properties),
 				pageSize: this.state.pageSize,
-				links: this.links
+				_links: this._links
 			});
 		});
 	}
@@ -343,7 +343,6 @@ class LinkList extends React.Component {
 		const pageInfo = this.props.page.hasOwnProperty("number") ?
 			<h3>links - Page {this.props.page.number + 1} of {this.props.page.totalPages}</h3> : null;
 
-        // list links
 		const links = this.props.links.map(link =>
 			<Link key={link.entity._links.self.href}
 					  link={link}
@@ -352,18 +351,18 @@ class LinkList extends React.Component {
 					  onDelete={this.props.onDelete}/>
 		);
 
-		const navLinks = [];
+		const nav_links = [];
 		if ("first" in this.props._links) {
-			navLinks.push(<button key="first" onClick={this.handleNavFirst}>&lt;&lt;</button>);
+			nav_links.push(<button key="first" onClick={this.handleNavFirst}>&lt;&lt;</button>);
 		}
 		if ("prev" in this.props._links) {
-			navLinks.push(<button key="prev" onClick={this.handleNavPrev}>&lt;</button>);
+			nav_links.push(<button key="prev" onClick={this.handleNavPrev}>&lt;</button>);
 		}
 		if ("next" in this.props._links) {
-			navLinks.push(<button key="next" onClick={this.handleNavNext}>&gt;</button>);
+			nav_links.push(<button key="next" onClick={this.handleNavNext}>&gt;</button>);
 		}
 		if ("last" in this.props._links) {
-			navLinks.push(<button key="last" onClick={this.handleNavLast}>&gt;&gt;</button>);
+			nav_links.push(<button key="last" onClick={this.handleNavLast}>&gt;&gt;</button>);
 		}
 
 		return (
@@ -373,8 +372,8 @@ class LinkList extends React.Component {
 				<table>
 					<tbody>
 						<tr>
-							<th>short ulr</th>
-							<th>long url</th>
+							<th>Short Url</th>
+							<th>Long Url</th>
 							<th></th>
 							<th></th>
 						</tr>
@@ -382,7 +381,7 @@ class LinkList extends React.Component {
 					</tbody>
 				</table>
 				<div>
-					{navLinks}
+					{nav_links}
 				</div>
 			</div>
 		)
