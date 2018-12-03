@@ -1,8 +1,13 @@
 package com.example.linksShortener.model;
+
+import java.sql.Timestamp;
+
 public class Link {
 
     private String shortUrl;
     private String longUrl;
+    private Timestamp createTime = new Timestamp(System.currentTimeMillis());
+    private Statistic statistic = new Statistic();
 
     public Link() {}
 
@@ -27,8 +32,17 @@ public class Link {
         return shortUrl;
     }
 
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
     @Override
     public String toString() {
-        return shortUrl + " " + longUrl;
+        return
+                shortUrl + " " +
+                longUrl + " " +
+                createTime + " " +
+                statistic.getClicks() + " " +
+                statistic.getIp();
     }
 }

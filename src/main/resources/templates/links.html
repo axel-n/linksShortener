@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Cars</title>
+    <title>List links</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -17,8 +17,8 @@
 
     <tr th:each="link : ${links}">
 
-        <td th:text="${link.shortUrl}">name</td>
-        <td th:text="${link.longUrl}">price</td>
+        <td th:text="${link.shortUrl}">shortUrl</td>
+        <td th:text="${link.longUrl}">longUrl</td>
     </tr>
 </table>
 
