@@ -1,7 +1,7 @@
 package com.example.linksShortener.controller.api;
 
 import com.example.linksShortener.model.Link;
-import com.example.linksShortener.service.ILinkService;
+import com.example.linksShortener.repository.ILinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +14,7 @@ import java.util.List;
 public class LinksController {
 
     @Autowired
-    private ILinkService linkService;
+    private ILinkRepository linkService;
 
     @RequestMapping("${spring.data.rest.base-path}/links")
     public List<Link> findLinks() {

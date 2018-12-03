@@ -13,12 +13,19 @@
     <tr>
         <th>shortUrl</th>
         <th>longUrl</th>
+        <th>created</th>
+        <th>clicks</th>
+        <th>ip</th>
     </tr>
 
     <tr th:each="link : ${links}">
 
         <td th:text="${link.shortUrl}">shortUrl</td>
         <td th:text="${link.longUrl}">longUrl</td>
+        <td th:text="${link.createTime}">created</td>
+        <td th:text="${link.clicks}">clicks</td>
+        <td th:text="${link.ip}">list ip</td>
+
     </tr>
 </table>
 

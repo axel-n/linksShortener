@@ -1,4 +1,4 @@
-package com.example.linksShortener.service;
+package com.example.linksShortener.repository;
 
 
 import com.example.linksShortener.model.Link;
@@ -8,27 +8,23 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.util.List;
 
 @Service
-public class LinkService implements ILinkService {
+public class LinkRepository implements ILinkRepository {
 
     @Autowired
     private JdbcTemplate jtm;
 
-    @Override
     public List<Link> findAll() {
-
         String sql = "SELECT * FROM LINKS";
-
         List<Link> links = jtm.query(sql, new BeanPropertyRowMapper(Link.class));
-
-        System.out.println(links);
-
         return links;
     }
 
-    @Override
     public Link findByShortUrl(String shortUrl) {
 
         String sql = "SELECT * FROM LINKS WHERE shortUrl= ?";
@@ -42,4 +38,17 @@ public class LinkService implements ILinkService {
 
         return null;
     }
+
+    public int saveLink(Link link) {
+
+        JSONObject statisticksJson = new JSONObject();
+
+        statisticksJson.put("clicks", link.getClicks());
+        statisticksJson.put("ips", link.getIp());
+
+        return jtm.update("insert into LINKS (shortURL, longURL, createTime, statistics) " + "values(?, ?, ?, ?)",
+                link.getShortUrl(), link.getLongUrl(), link.getCreateTime(), statisticksJson.toJSONString());
+    }
+
+
 }
