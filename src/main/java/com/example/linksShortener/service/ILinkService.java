@@ -1,6 +1,6 @@
 package com.example.linksShortener.service;
 
-import com.example.linksShortener.bean.Link;
+import com.example.linksShortener.model.Link;
 import java.util.List;
 
 public interface ILinkService {

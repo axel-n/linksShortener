@@ -1,6 +1,6 @@
 package com.example.linksShortener.controller.html;
 
-import com.example.linksShortener.bean.Link;
+import com.example.linksShortener.model.Link;
 import com.example.linksShortener.service.ILinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class LinksHtmlController {
         return "home";
     }
 
-    @RequestMapping("/links")
+    @RequestMapping("/user/links")
     public ModelAndView showLinks() {
 
         List<Link> links = linkService.findAll();

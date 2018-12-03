@@ -1,6 +1,6 @@
 package com.example.linksShortener.controller.api;
 
-import com.example.linksShortener.bean.Link;
+import com.example.linksShortener.model.Link;
 import com.example.linksShortener.service.ILinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +21,7 @@ public class LinksController {
         return linkService.findAll();
     }
 
-    @RequestMapping("${spring.data.rest.base-path}/links/{shortUrl}")
+    @RequestMapping("/{shortUrl}")
     public Link findCity(@PathVariable String shortUrl) {
 
         return linkService.findByShortUrl(shortUrl);

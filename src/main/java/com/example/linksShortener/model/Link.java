@@ -1,4 +1,4 @@
-package com.example.linksShortener.bean;
+package com.example.linksShortener.model;
 public class Link {
 
     private String shortUrl;
