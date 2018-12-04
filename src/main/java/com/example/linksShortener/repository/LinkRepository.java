@@ -2,14 +2,14 @@ package com.example.linksShortener.repository;
 
 
 import com.example.linksShortener.model.Link;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+
 
 import java.util.List;
 import java.util.Random;
@@ -30,19 +30,18 @@ public class LinkRepository implements ILinkRepository {
 
     public List<Link> findAll() {
         List<Link> links = jtm.query(ALL_LINKS, new BeanPropertyRowMapper(Link.class));
-        System.out.println(links);
+
+//        System.out.println("links =" + links);
         return links;
     }
 
     public Link findByShortUrl(String shortUrl) {
 
         try {
-            Link link = (Link) jtm.queryForObject(LINKS_BY_SHORT_URL, new Object[]{shortUrl}, new BeanPropertyRowMapper(Link.class));
-            return link;
+            return (Link) jtm.queryForObject(LINKS_BY_SHORT_URL, new Object[]{shortUrl}, new BeanPropertyRowMapper(Link.class));
         } catch (EmptyResultDataAccessException e) {
             System.out.println(shortUrl + "not found");
         }
-
         return null;
     }
 

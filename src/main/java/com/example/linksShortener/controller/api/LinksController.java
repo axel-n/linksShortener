@@ -14,25 +14,27 @@ import java.util.List;
 public class LinksController {
 
     @Autowired
-    private ILinkRepository linkService;
+    private ILinkRepository linkRepository;
 
     @RequestMapping("${spring.data.rest.base-path}/links")
     public List<Link> findLinks() {
 
-        return linkService.findAll();
+        return linkRepository.findAll();
     }
 
     // @RequestMapping("/{shortUrl}")
     @GetMapping("/{shortUrl}")
     public String findLink(@PathVariable String shortUrl) {
 
-        Link link = linkService.findByShortUrl(shortUrl);
+        Link link = linkRepository.findByShortUrl(shortUrl);
 
         if (link != null) {
 
             link.incrimentClicks();
-            linkService.updateStatistic(link);
-            return linkService.findByShortUrl(shortUrl).getLongUrl();
+//            link.setIp("new ip");
+
+            linkRepository.updateStatistic(link);
+            return linkRepository.findByShortUrl(shortUrl).getLongUrl();
 
 
         } else {

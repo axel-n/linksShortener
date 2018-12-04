@@ -1,5 +1,9 @@
 package com.example.linksShortener.model;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,25 +11,56 @@ import java.util.List;
 
 public class Link {
 
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-
     private String shortUrl;
     private String longUrl;
     private Timestamp createTime;
 
     // TODO
     // move statistic data to another class
+    private String statistics;
     private int clicks;
     private List<String> ip;
 
-    public Link() {}
+    public Link() {
+    }
 
     public Link(String longUrl) {
         this.shortUrl = "";
         this.longUrl = longUrl;
         this.createTime = new Timestamp(System.currentTimeMillis());
+        this.statistics = "";
         this.clicks = 0;
         this.ip = new ArrayList<>();
+
+        this.ip.add("123");
+        this.ip.add("456");
+    }
+
+    public String getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(String statistics) {
+
+        readStatistic(statistics);
+
+        this.statistics = statistics;
+    }
+
+    private void readStatistic(String statistics) {
+
+        try {
+            Object obj = new JSONParser().parse(statistics);
+            JSONObject jo = (JSONObject) obj;
+
+            this.clicks = ((Long) jo.get("clicks")).intValue();
+
+            String ip = (String) jo.get("ip");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String getLongUrl() {
@@ -74,7 +109,6 @@ public class Link {
                 shortUrl + " " +
                 longUrl + " " +
                 createTime + " " +
-                clicks + " " +
-                ip;
+                statistics + " ";
     }
 }
