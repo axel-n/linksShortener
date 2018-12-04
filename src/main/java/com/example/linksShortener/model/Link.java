@@ -21,8 +21,7 @@ public class Link {
     private int clicks;
     private List<String> ip;
 
-    public Link() {
-    }
+    public Link() {}
 
     public Link(String longUrl) {
         this.shortUrl = "";
@@ -31,9 +30,6 @@ public class Link {
         this.statistics = "";
         this.clicks = 0;
         this.ip = new ArrayList<>();
-
-        this.ip.add("123");
-        this.ip.add("456");
     }
 
     public String getStatistics() {
@@ -55,7 +51,7 @@ public class Link {
 
             this.clicks = ((Long) jo.get("clicks")).intValue();
 
-            String ip = (String) jo.get("ip");
+            this.ip = (ArrayList<String>) jo.get("ips");
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -96,7 +92,8 @@ public class Link {
     }
 
     public List<String> getIp() {
-        return ip;
+
+        return this.ip;
     }
 
     public void setIp(String ip) {

@@ -3,13 +3,12 @@ package com.example.linksShortener.repository;
 
 import com.example.linksShortener.model.Link;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
-
 
 import java.util.List;
 import java.util.Random;
@@ -17,11 +16,13 @@ import java.util.Random;
 @Service
 public class LinkRepository implements ILinkRepository {
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(LinkRepository.class);
+
     private final int MAX_COUNT_WORDS = 5;
     private final String ALL_LINKS = "SELECT * FROM LINKS";
     private final String LINKS_BY_SHORT_URL = "SELECT * FROM LINKS WHERE shortUrl= ?";
     private final String LINKS_ADD_NEW = "INSERT INTO LINKS (shortURL, longURL, createTime, statistics) VALUES (?, ?, ?, ?)";
-    private final String LINKS_UPDATE_STATISTICS = "UPDATE LINKS SET statistics = ?";
+    private final String LINKS_UPDATE_STATISTICS = "UPDATE LINKS SET statistics = ? where shortUrl = ?";
 
     private final String POSSIBLE_CHARACTERS = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
 
@@ -29,10 +30,7 @@ public class LinkRepository implements ILinkRepository {
     private JdbcTemplate jtm;
 
     public List<Link> findAll() {
-        List<Link> links = jtm.query(ALL_LINKS, new BeanPropertyRowMapper(Link.class));
-
-//        System.out.println("links =" + links);
-        return links;
+        return jtm.query(ALL_LINKS, new BeanPropertyRowMapper(Link.class));
     }
 
     public Link findByShortUrl(String shortUrl) {
@@ -40,7 +38,8 @@ public class LinkRepository implements ILinkRepository {
         try {
             return (Link) jtm.queryForObject(LINKS_BY_SHORT_URL, new Object[]{shortUrl}, new BeanPropertyRowMapper(Link.class));
         } catch (EmptyResultDataAccessException e) {
-            System.out.println(shortUrl + "not found");
+
+            log.info("{} not found", shortUrl);
         }
         return null;
     }
@@ -53,6 +52,8 @@ public class LinkRepository implements ILinkRepository {
         // добавить несколько попыток
         String shortURl = getRandomShortUrl();
 
+        log.info("shortUrl {} with data saving  in database", shortURl);
+
         return jtm.update(LINKS_ADD_NEW,
                 shortURl, link.getLongUrl(), link.getCreateTime(), statisticJson);
     }
@@ -61,7 +62,7 @@ public class LinkRepository implements ILinkRepository {
 
         StringBuilder idBuilder = new StringBuilder();
         Random rnd = new Random();
-        while (idBuilder.length() < MAX_COUNT_WORDS ) {
+        while (idBuilder.length() < MAX_COUNT_WORDS) {
             int index = (int) (rnd.nextFloat() * POSSIBLE_CHARACTERS.length());
             idBuilder.append(POSSIBLE_CHARACTERS.charAt(index));
         }
@@ -72,10 +73,9 @@ public class LinkRepository implements ILinkRepository {
 
         String statisticJson = getStatistic2Json(link);
 
-        System.out.println("save updated statistic " +  statisticJson +
-                " for shortUrl " + link.getShortUrl());
+        log.info("save updated statistic {} for shortUrl {}", statisticJson, link.getShortUrl());
 
-        jtm.update(LINKS_UPDATE_STATISTICS, statisticJson);
+        jtm.update(LINKS_UPDATE_STATISTICS, statisticJson, link.getShortUrl());
     }
 
     private String getStatistic2Json(Link link) {

@@ -2,6 +2,7 @@ package com.example.linksShortener.controller.html;
 
 import com.example.linksShortener.model.Link;
 import com.example.linksShortener.repository.ILinkRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,8 +39,6 @@ public class LinksHtmlController {
 
         Map<String, Object> params = new HashMap<>();
         params.put("links", links);
-
-        System.out.println(links);
 
         return new ModelAndView("links", params);
     }

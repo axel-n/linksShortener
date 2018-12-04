@@ -2,11 +2,9 @@ package com.example.linksShortener.controller.api;
 
 import com.example.linksShortener.model.Link;
 import com.example.linksShortener.repository.ILinkRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +20,6 @@ public class LinksController {
         return linkRepository.findAll();
     }
 
-    // @RequestMapping("/{shortUrl}")
     @GetMapping("/{shortUrl}")
     public String findLink(@PathVariable String shortUrl) {
 
@@ -31,11 +28,9 @@ public class LinksController {
         if (link != null) {
 
             link.incrimentClicks();
-//            link.setIp("new ip");
 
             linkRepository.updateStatistic(link);
             return linkRepository.findByShortUrl(shortUrl).getLongUrl();
-
 
         } else {
             // TODO
@@ -44,4 +39,6 @@ public class LinksController {
         }
 
     }
+
+
 }

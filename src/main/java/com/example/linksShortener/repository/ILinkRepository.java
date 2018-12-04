@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface ILinkRepository {
 
-    public List<Link> findAll();
+    public List findAll();
     public Link findByShortUrl(String shortUrl);
     public int saveLink(Link link);
     public void updateStatistic(Link link);
