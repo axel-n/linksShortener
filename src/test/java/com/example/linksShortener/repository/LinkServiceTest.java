@@ -1,7 +1,7 @@
 package com.example.linksShortener.repository;
 
-import com.example.linksShortener.Application;
 import com.example.linksShortener.model.Link;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
-public class LinkServiceTest  {
+@SpringBootTest()
+public class LinkServiceTest extends DatabaseTest {
 
     @Autowired
     private ILinkRepository linkService;
@@ -46,4 +46,6 @@ public class LinkServiceTest  {
 
         assertEquals(3, sizeAfter);
     }
+
+
 }
