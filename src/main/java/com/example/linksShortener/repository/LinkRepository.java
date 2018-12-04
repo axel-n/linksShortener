@@ -44,7 +44,7 @@ public class LinkRepository implements ILinkRepository {
         return null;
     }
 
-    public int saveLink(Link link) {
+    public String saveLink(Link link) {
 
         String statisticJson = getStatistic2Json(link);
 
@@ -54,8 +54,10 @@ public class LinkRepository implements ILinkRepository {
 
         log.info("shortUrl {} with data saving  in database", shortURl);
 
-        return jtm.update(LINKS_ADD_NEW,
+        jtm.update(LINKS_ADD_NEW,
                 shortURl, link.getLongUrl(), link.getCreateTime(), statisticJson);
+
+        return shortURl;
     }
 
     private String getRandomShortUrl() {

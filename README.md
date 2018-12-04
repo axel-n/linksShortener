@@ -4,6 +4,7 @@
 - spring
 - thymeleaf
 - h2
+- junit4
 
 ## Что умееет
 - некоторое api
