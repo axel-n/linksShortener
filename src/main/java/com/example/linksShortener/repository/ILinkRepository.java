@@ -8,5 +8,5 @@ public interface ILinkRepository {
     public List<Link> findAll();
     public Link findByShortUrl(String shortUrl);
     public int saveLink(Link link);
-
+    public void updateStatistic(Link link);
 }

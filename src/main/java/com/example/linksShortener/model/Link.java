@@ -20,8 +20,8 @@ public class Link {
 
     public Link() {}
 
-    public Link(String shortUrl, String longUrl) {
-        this.shortUrl = shortUrl;
+    public Link(String longUrl) {
+        this.shortUrl = "";
         this.longUrl = longUrl;
         this.createTime = new Timestamp(System.currentTimeMillis());
         this.clicks = 0;

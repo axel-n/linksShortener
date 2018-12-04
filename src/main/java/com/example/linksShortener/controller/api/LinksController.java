@@ -29,7 +29,12 @@ public class LinksController {
         Link link = linkService.findByShortUrl(shortUrl);
 
         if (link != null) {
+
+            link.incrimentClicks();
+            linkService.updateStatistic(link);
             return linkService.findByShortUrl(shortUrl).getLongUrl();
+
+
         } else {
             // TODO
             // переделать в нормальные исключения

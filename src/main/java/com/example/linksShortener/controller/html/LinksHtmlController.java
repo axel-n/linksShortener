@@ -25,7 +25,7 @@ public class LinksHtmlController {
         // TODO
         // 1. переместить тесты в нужное место
         // 2. добавить генерацию уникальной короткой ссылки
-        Link link1 = new Link("abcd", "https://ya.ru");
+        Link link1 = new Link("https://ya.ru");
         int result = linkService.saveLink(link1);
         // end init for test
 
