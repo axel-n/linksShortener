@@ -1,6 +1,6 @@
 package com.example.linksShortener.repository;
 
-import com.example.linksShortener.model.Link;
+import com.example.linksShortener.model.Link_;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ public class LinkServiceTest extends DatabaseTest {
     @Test
     public void SaveOneLink() {
 
-        Link link1 = new Link("https://ya.ru");
+        Link_ link1 = new Link_("https://ya.ru");
         String expectedShortUrl = linkService.saveLink(link1);
 
         String resultShortUrl = linkService.findByShortUrl(expectedShortUrl).getShortUrl();
@@ -31,9 +31,9 @@ public class LinkServiceTest extends DatabaseTest {
     @Test
     public void SaveSeveralLinks() {
 
-        Link link1 = new Link("https://ya.ru");
-        Link link2 = new Link("https://google.com");
-        Link link3 = new Link("https://example.com");
+        Link_ link1 = new Link_("https://ya.ru");
+        Link_ link2 = new Link_("https://google.com");
+        Link_ link3 = new Link_("https://example.com");
 
         int sizeBefore = linkService.findAll().size();
         assertEquals(0, sizeBefore);

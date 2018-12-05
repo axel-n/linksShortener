@@ -18,13 +18,11 @@ public class LinkRepository implements ILinkRepository {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(LinkRepository.class);
 
-    private final int MAX_COUNT_WORDS = 5;
+
     private final String ALL_LINKS = "SELECT * FROM LINKS";
     private final String LINKS_BY_SHORT_URL = "SELECT * FROM LINKS WHERE shortUrl= ?";
     private final String LINKS_ADD_NEW = "INSERT INTO LINKS (shortURL, longURL, createTime, statistics) VALUES (?, ?, ?, ?)";
     private final String LINKS_UPDATE_STATISTICS = "UPDATE LINKS SET statistics = ? where shortUrl = ?";
-
-    private final String POSSIBLE_CHARACTERS = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
 
     @Autowired
     private JdbcTemplate jtm;
@@ -46,11 +44,11 @@ public class LinkRepository implements ILinkRepository {
 
     public String saveLink(Link link) {
 
-        String statisticJson = getStatistic2Json(link);
+        String statisticJson = link.getStatistic().getStatistic2Json();
 
         // TODO
         // добавить несколько попыток
-        String shortURl = getRandomShortUrl();
+        String shortURl = link.getShortUrl();
 
         log.info("shortUrl {} with data saving  in database", shortURl);
 
@@ -60,34 +58,16 @@ public class LinkRepository implements ILinkRepository {
         return shortURl;
     }
 
-    private String getRandomShortUrl() {
-
-        StringBuilder idBuilder = new StringBuilder();
-        Random rnd = new Random();
-        while (idBuilder.length() < MAX_COUNT_WORDS) {
-            int index = (int) (rnd.nextFloat() * POSSIBLE_CHARACTERS.length());
-            idBuilder.append(POSSIBLE_CHARACTERS.charAt(index));
-        }
-        return idBuilder.toString();
-    }
-
     public void updateStatistic(Link link) {
 
-        String statisticJson = getStatistic2Json(link);
+        String statisticJson = link.getStatistic().getStatistic2Json();
 
         log.info("save updated statistic {} for shortUrl {}", statisticJson, link.getShortUrl());
 
         jtm.update(LINKS_UPDATE_STATISTICS, statisticJson, link.getShortUrl());
     }
 
-    private String getStatistic2Json(Link link) {
-        JSONObject statisticksJson = new JSONObject();
 
-        statisticksJson.put("clicks", link.getClicks());
-        statisticksJson.put("ips", link.getIp());
-
-        return statisticksJson.toJSONString();
-    }
 
 
 }

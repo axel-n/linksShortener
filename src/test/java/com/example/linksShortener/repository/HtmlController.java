@@ -1,6 +1,6 @@
 package com.example.linksShortener.repository;
 
-import com.example.linksShortener.model.Link;
+import com.example.linksShortener.model.Link_;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class HtmlController extends DatabaseTest {
     @Test
     public void openLink() throws Exception {
 
-        Link link1 = new Link("https://ya.ru");
+        Link_ link1 = new Link_("https://ya.ru");
         String shortUrl = linkService.saveLink(link1);
 
         System.out.println(shortUrl);
