@@ -37,7 +37,7 @@ public class Link extends AbstractPersistable<Integer> {
 
     @Transient
     // чтобы spring не пыталась создать колонку с "неизвестным" типом, но мы имели доступ к полям без обработки через json
-    private Statistic statisticHidden;
+    private Statistic statisticObj;
 
     // default constructor for spring. don't remove
     public Link() {
@@ -51,8 +51,8 @@ public class Link extends AbstractPersistable<Integer> {
         this.userId = userId;
         this.longUrl = longUrl;
         this.shortUrl = generateShortUrl();
-        this.statisticHidden = new Statistic();
-        this.statistic = statisticHidden.getData2Json(); // немного магии :)
+        this.statisticObj = new Statistic();
+        this.statistic = statisticObj.getData2Json(); // немного магии :)
         this.createTime = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss").format(new Timestamp(System.currentTimeMillis()));
         return this.shortUrl;
     }
@@ -77,13 +77,17 @@ public class Link extends AbstractPersistable<Integer> {
         return createTime;
     }
 
+    public Statistic getStatisticObj() {
+        return statisticObj;
+    }
+
     public String getStatistic() {
         return statistic;
     }
 
     public void addStatistic(String ip) {
-        statisticHidden.incClicks();
-        statisticHidden.addIp(ip);
+        statisticObj.incClicks();
+        statisticObj.addIp(ip);
     }
 
     @Override
