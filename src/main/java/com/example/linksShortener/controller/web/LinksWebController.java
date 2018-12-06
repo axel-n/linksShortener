@@ -1,7 +1,7 @@
-package com.example.linksShortener.controller.html;
+package com.example.linksShortener.controller.web;
 
 import com.example.linksShortener.model.Link;
-import com.example.linksShortener.repository.ILinkRepository;
+import com.example.linksShortener.repository.LinkRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,28 +14,20 @@ import java.util.Map;
 
 
 @Controller
-public class LinksHtmlController {
+public class LinksWebController {
 
     @Autowired
-    private ILinkRepository linkService;
+    private LinkRepository linkRepository;
 
     @RequestMapping("/")
     public String index() {
-
-        // init for test
-        // TODO
-        // 1. переместить тесты в нужное место
-        // 2. добавить генерацию уникальной короткой ссылки
-        Link link1 = new Link("https://ya.ru");
-        int result = linkService.saveLink(link1);
-        // end init for test
 
         return "home";
     }
 
     @RequestMapping("/user/links")
     public ModelAndView showLinks() {
-        List<Link> links = linkService.findAll();
+        List<Link> links = linkRepository.findAll();
 
         Map<String, Object> params = new HashMap<>();
         params.put("links", links);

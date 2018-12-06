@@ -1,111 +1,114 @@
 package com.example.linksShortener.model;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Formatter;
+import java.util.Random;
 
-public class Link {
+@Entity
+@NamedQuery(name = "Link.findByShortUrl", query = "from Link l where l.shortUrl = ?1")
+@NamedQuery(name = "Link.findByUserId", query = "from Link l where l.userId = ?1")
+@Table(name = "links")
+public class Link extends AbstractPersistable<Integer> {
 
+    private int userId;
+
+    @Column(unique = true, name = "short_url")
     private String shortUrl;
+
+    @Column(name = "long_url")
     private String longUrl;
-    private Timestamp createTime;
 
-    // TODO
-    // move statistic data to another class
-    private String statistics;
-    private int clicks;
-    private List<String> ip;
+    private String statistic;
 
-    public Link() {}
+    @Column(name = "created")
+    private String createTime;
 
-    public Link(String longUrl) {
-        this.shortUrl = "";
+    @Transient
+    private static final int MAX_COUNT_WORDS = 5;
+    @Transient
+    private final String POSSIBLE_CHARACTERS = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
+    @Transient
+    private static final int DEFAULT_USER_ID = 0;
+
+    @Transient
+    // чтобы spring не пыталась создать колонку с "неизвестным" типом, но мы имели доступ к полям без обработки через json
+    private Statistic statisticObj;
+
+    // default constructor for spring. don't remove
+    public Link() {
+    }
+
+    public String setLongUrl(String longUrl) {
+        return setLongUrl(longUrl, DEFAULT_USER_ID);
+    }
+
+    public String setLongUrl(String longUrl, int userId) {
+        this.userId = userId;
         this.longUrl = longUrl;
-        this.createTime = new Timestamp(System.currentTimeMillis());
-        this.statistics = "";
-        this.clicks = 0;
-        this.ip = new ArrayList<>();
+        this.shortUrl = generateShortUrl();
+        this.statisticObj = new Statistic();
+        this.statistic = statisticObj.getData2Json(); // немного магии :)
+        this.createTime = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss").format(new Timestamp(System.currentTimeMillis()));
+        return this.shortUrl;
     }
 
-    public String getStatistics() {
-        return statistics;
-    }
-
-    public void setStatistics(String statistics) {
-
-        readStatistic(statistics);
-
-        this.statistics = statistics;
-    }
-
-    private void readStatistic(String statistics) {
-
-        try {
-            Object obj = new JSONParser().parse(statistics);
-            JSONObject jo = (JSONObject) obj;
-
-            this.clicks = ((Long) jo.get("clicks")).intValue();
-
-            this.ip = (ArrayList<String>) jo.get("ips");
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+    public int getUserId() {
+        return userId;
     }
 
     public String getLongUrl() {
-        return this.longUrl;
+        return longUrl;
     }
 
-    public void setLongUrl(String longUrl) {
-        this.longUrl = longUrl;
+    public String getShortUrl() {
+        return shortUrl;
     }
 
     public void setShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
     }
 
-    public String getShortUrl() {
-        return this.shortUrl;
-    }
-
     public String getCreateTime() {
-        return new SimpleDateFormat("YYYY-MM-dd hh:mm:ss").format(createTime);
+        return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
+    public Statistic getStatisticObj() {
+        return statisticObj;
     }
 
-    public int getClicks() {
-        return clicks;
+    public String getStatistic() {
+        return statistic;
     }
 
-    public void incrimentClicks() {
-        this.clicks++;
-    }
-
-    public List<String> getIp() {
-
-        return this.ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip.add(ip);
+    public void addStatistic(String ip) {
+        statisticObj.incClicks();
+        statisticObj.addIp(ip);
     }
 
     @Override
     public String toString() {
-        return
-                shortUrl + " " +
-                longUrl + " " +
-                createTime + " " +
-                statistics + " ";
+        Formatter formatter = new Formatter();
+
+        formatter.format("%n%nshortUrl: %s, longUrl: %s, created: %s", shortUrl, longUrl, getCreateTime());
+        formatter.format("%nstatistic: %s", statistic);
+
+        return formatter.toString();
     }
+
+
+    private String generateShortUrl() {
+        StringBuilder idBuilder = new StringBuilder();
+        Random rnd = new Random();
+        while (idBuilder.length() < MAX_COUNT_WORDS) {
+            int index = (int) (rnd.nextFloat() * POSSIBLE_CHARACTERS.length());
+            idBuilder.append(POSSIBLE_CHARACTERS.charAt(index));
+        }
+        return idBuilder.toString();
+    }
+
 }
