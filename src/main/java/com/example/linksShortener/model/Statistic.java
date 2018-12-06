@@ -8,6 +8,14 @@ import java.util.TreeSet;
 
 public class Statistic {
 
+    private int clicks;
+    private TreeSet<String> ip;
+
+    public Statistic() {
+        this.clicks = 0;
+        this.ip = new TreeSet<>();
+    }
+
     public int getClicks() {
         return clicks;
     }
@@ -24,17 +32,11 @@ public class Statistic {
         this.ip.add(ip);
     }
 
-    public Statistic() {
-        this.clicks = 0;
-        this.ip = new TreeSet<>();
-    }
-
-    public String getStatistic2Json() {
+    public String getData2Json() {
         JSONObject statisticksJson = new JSONObject();
 
-
-        statisticksJson.put("clicks", getClicks());
-        statisticksJson.put("ips", getIp());
+        statisticksJson.put("clicks", clicks);
+        statisticksJson.put("ips", ip);
 
         return statisticksJson.toJSONString();
     }
@@ -45,9 +47,5 @@ public class Statistic {
 
         formatter.format("clicks: %s, list ip: %s", getClicks(), getIp());
         return formatter.toString();
-
     }
-
-    private int clicks;
-    private TreeSet<String> ip;
 }

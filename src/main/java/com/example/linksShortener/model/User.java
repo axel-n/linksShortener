@@ -1,55 +1,61 @@
 package com.example.linksShortener.model;
 
 
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.Formatter;
-import java.util.UUID;
 
-public class User {
+@Entity
+@NamedQuery(name = "User.findByUserName", query = "from User l where l.name = ?1")
+@Table(name = "users")
+public class User extends AbstractPersistable<Integer> {
 
-    public UUID getId() {
-        return id;
-    }
+    private String name;
+    @Transient
+    private ArrayList<Link> links;
+
+    // default constructor for spring. don't remove
+    public User() { }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+        this.links = new ArrayList<>();
+    }
+
     public ArrayList<Link> getLinks() {
-        return link;
+        return links;
     }
 
     public void setLinks(Link link) {
-        this.link.add(link);
-    }
-
-    public User(String name) {
-        this.id = UUID.randomUUID();
-        this.name = name;
-        this.link = new ArrayList<>();
+        this.links.add(link);
     }
 
     @Override
     public String toString() {
 
         Formatter formatter = new Formatter();
-        formatter.format("\n\n=================================");
+        formatter.format("%n%n=================================");
 
-        formatter.format("\nname: %s, UUID: %s", getName(), getId());
-        formatter.format("\n----------------------");
-        formatter.format("\nLinks:");
+        formatter.format("%nname: %s, id: %s", name, getId());
+        formatter.format("%n----------------------");
+        formatter.format("%nLinks:");
 
-        for (int i = 0; i < link.size(); i++) {
-            formatter.format("%s", link.get(i));
+        for (int i = 0; i < links.size(); i++) {
+            formatter.format("%s", links.get(i));
         }
 
-        formatter.format("\n----------------------");
+        formatter.format("%n----------------------");
 
         return formatter.toString();
     }
-
-    private UUID id;
-    private String name;
-    private ArrayList<Link> link;
 }
 
