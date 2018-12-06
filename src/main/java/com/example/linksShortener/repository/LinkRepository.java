@@ -7,4 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface LinkRepository extends CrudRepository<Link, Integer>{
 
     Link findByShortUrl(String shortUrl);
+    List<Link> findByUserId (int userId);
+    List<Link> findAll();
 }

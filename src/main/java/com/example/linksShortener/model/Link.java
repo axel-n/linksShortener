@@ -11,14 +11,21 @@ import java.util.Random;
 
 @Entity
 @NamedQuery(name = "Link.findByShortUrl", query = "from Link l where l.shortUrl = ?1")
+@NamedQuery(name = "Link.findByUserId", query = "from Link l where l.userId = ?1")
 @Table(name = "links")
 public class Link extends AbstractPersistable<Integer> {
 
     private int userId;
-    @Column(unique = true)
+
+    @Column(unique = true, name = "short_url")
     private String shortUrl;
+
+    @Column(name = "long_url")
     private String longUrl;
+
     private String statistic;
+
+    @Column(name = "created")
     private String createTime;
 
     @Transient
@@ -50,7 +57,9 @@ public class Link extends AbstractPersistable<Integer> {
         return this.shortUrl;
     }
 
-
+    public int getUserId() {
+        return userId;
+    }
 
     public String getLongUrl() {
         return longUrl;
@@ -97,7 +106,5 @@ public class Link extends AbstractPersistable<Integer> {
         }
         return idBuilder.toString();
     }
-
-
 
 }

@@ -7,14 +7,17 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class DatabaseTest {
 
-    private final String TRUNCATE = "TRUNCATE TABLE LINKS";
+    private final String TRUNCATE_LINKS = "TRUNCATE TABLE LINKS";
+    private final String TRUNCATE_USERS = "TRUNCATE TABLE USERS";
 
     @Autowired
     private JdbcTemplate jtm;
 
     @Before
     public void deleteAll() {
-        System.out.println("Truncate table!");
-        jtm.execute(TRUNCATE);
+        jtm.execute(TRUNCATE_LINKS);
+        jtm.execute(TRUNCATE_USERS);
+
+        System.out.println("Truncate tables!");
     }
 }

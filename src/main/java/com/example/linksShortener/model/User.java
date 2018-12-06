@@ -3,10 +3,7 @@ package com.example.linksShortener.model;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Formatter;
 
@@ -16,6 +13,7 @@ import java.util.Formatter;
 public class User extends AbstractPersistable<Integer> {
 
     private String name;
+
     @Transient
     private ArrayList<Link> links;
 
