@@ -1,6 +1,6 @@
-package com.example.linksShortener.repository;
+package com.example.links_shortener.repository;
 
-import com.example.linksShortener.model.User;
+import com.example.links_shortener.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Integer>{

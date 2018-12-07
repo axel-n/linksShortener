@@ -1,7 +1,7 @@
-package com.example.linksShortener.controller.web;
+package com.example.links_shortener.controller.web;
 
-import com.example.linksShortener.model.Link;
-import com.example.linksShortener.repository.LinkRepository;
+import com.example.links_shortener.model.Link;
+import com.example.links_shortener.repository.LinkRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

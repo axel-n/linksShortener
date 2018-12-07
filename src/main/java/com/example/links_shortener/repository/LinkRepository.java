@@ -1,6 +1,6 @@
-package com.example.linksShortener.repository;
+package com.example.links_shortener.repository;
 
-import com.example.linksShortener.model.Link;
+import com.example.links_shortener.model.Link;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 

@@ -1,8 +1,6 @@
-package com.example.linksShortener.repository;
+package com.example.links_shortener.repository;
 
-import com.example.linksShortener.model.Link;
-import com.example.linksShortener.model.Statistic;
-import com.example.linksShortener.model.User;
+import com.example.links_shortener.model.Link;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,23 +29,32 @@ public class WebControllerTest extends DatabaseTest {
     private MockMvc mockMvc;
 
     @Test
-    public void openLink() throws Exception {
+    public void openLink() {
 
         Link link1 = new Link();
 
         // receive user from browser/api (before save in bd)
         String resultShortUrl = link1.setLongUrl(TEST_URL1);
+        linkRepository.save(link1);
 
-        Statistic statistic = linkRepository.save(link1).getStatisticObj();
-
-        int clickBeforeOpen  = statistic.getClicks();
+        int clickBeforeOpen  = link1.getClicks();
         assertEquals(0, clickBeforeOpen);
 
         // goto to longUrl by shortUrl
-        this.mockMvc.perform(get("/" + resultShortUrl)).andDo(print()).andExpect(status().isOk());
+        try {
+            this.mockMvc.perform(get("/" + resultShortUrl)).andDo(print()).andExpect(status().isOk());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // and backend increment statistic clicks
-        int clickAfterOpen = linkRepository.findByShortUrl(resultShortUrl).getStatisticObj().getClicks();
+        int clickAfterOpen = linkRepository.findByShortUrl(resultShortUrl).getClicks();
         assertEquals(1, clickAfterOpen);
+    }
+
+    @Test
+    public void notFound() {
+        // TODO
+        // this
     }
 }

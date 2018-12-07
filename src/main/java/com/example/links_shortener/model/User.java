@@ -1,4 +1,4 @@
-package com.example.linksShortener.model;
+package com.example.links_shortener.model;
 
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -50,7 +50,6 @@ public class User extends AbstractPersistable<Integer> {
         for (int i = 0; i < links.size(); i++) {
             formatter.format("%s", links.get(i));
         }
-
         formatter.format("%n----------------------");
 
         return formatter.toString();
