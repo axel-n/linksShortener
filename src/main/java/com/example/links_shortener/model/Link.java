@@ -1,4 +1,4 @@
-package com.example.linksShortener.model;
+package com.example.links_shortener.model;
 
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -23,7 +23,7 @@ public class Link extends AbstractPersistable<Integer> {
     @Column(name = "long_url")
     private String longUrl;
 
-    private String statistic;
+    private int clicks;
 
     @Column(name = "created")
     private String createTime;
@@ -34,10 +34,6 @@ public class Link extends AbstractPersistable<Integer> {
     private final String POSSIBLE_CHARACTERS = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890";
     @Transient
     private static final int DEFAULT_USER_ID = 0;
-
-    @Transient
-    // чтобы spring не пыталась создать колонку с "неизвестным" типом, но мы имели доступ к полям без обработки через json
-    private Statistic statisticObj;
 
     // default constructor for spring. don't remove
     public Link() {
@@ -51,55 +47,43 @@ public class Link extends AbstractPersistable<Integer> {
         this.userId = userId;
         this.longUrl = longUrl;
         this.shortUrl = generateShortUrl();
-        this.statisticObj = new Statistic();
-        this.statistic = statisticObj.getData2Json(); // немного магии :)
-        this.createTime = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss").format(new Timestamp(System.currentTimeMillis()));
+        this.createTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Timestamp(System.currentTimeMillis()));
+
         return this.shortUrl;
     }
 
     public int getUserId() {
-        return userId;
+        return this.userId;
     }
 
     public String getLongUrl() {
-        return longUrl;
+        return this.longUrl;
     }
 
     public String getShortUrl() {
-        return shortUrl;
-    }
-
-    public void setShortUrl(String shortUrl) {
-        this.shortUrl = shortUrl;
+        return this.shortUrl;
     }
 
     public String getCreateTime() {
-        return createTime;
+        return this.createTime;
     }
 
-    public Statistic getStatisticObj() {
-        return statisticObj;
+    public int getClicks() {
+        return this.clicks;
     }
 
-    public String getStatistic() {
-        return statistic;
-    }
-
-    public void addStatistic(String ip) {
-        statisticObj.incClicks();
-        statisticObj.addIp(ip);
+    public void setClicks() {
+        this.clicks++;
     }
 
     @Override
     public String toString() {
         Formatter formatter = new Formatter();
 
-        formatter.format("%n%nshortUrl: %s, longUrl: %s, created: %s", shortUrl, longUrl, getCreateTime());
-        formatter.format("%nstatistic: %s", statistic);
+        formatter.format("%n%nshortUrl: %s, longUrl: %s, created: %s, clicks: %s", shortUrl, longUrl, createTime, clicks);
 
         return formatter.toString();
     }
-
 
     private String generateShortUrl() {
         StringBuilder idBuilder = new StringBuilder();

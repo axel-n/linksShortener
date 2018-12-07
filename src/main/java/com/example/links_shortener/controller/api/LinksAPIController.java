@@ -1,8 +1,8 @@
-package com.example.linksShortener.controller.api;
+package com.example.links_shortener.controller.api;
 
 
-import com.example.linksShortener.model.Link;
-import com.example.linksShortener.repository.LinkRepository;
+import com.example.links_shortener.model.Link;
+import com.example.links_shortener.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +19,6 @@ public class LinksAPIController {
     public Iterable<Link> findAllLinks() {
 
         Iterable<Link> links = linkRepository.findAll();
-
-        System.out.println(links.toString());
-
         return linkRepository.findAll();
     }
 
@@ -32,7 +29,7 @@ public class LinksAPIController {
 
         if (link != null) {
 
-            link.addStatistic("some ip");
+            link.setClicks();
             linkRepository.save(link);
 
             return link.getLongUrl();

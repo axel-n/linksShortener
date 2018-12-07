@@ -1,8 +1,8 @@
-package com.example.linksShortener.repository;
+package com.example.links_shortener.repository;
 
-import com.example.linksShortener.model.Link;
+import com.example.links_shortener.model.Link;
 
-import com.example.linksShortener.model.User;
+import com.example.links_shortener.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
