@@ -3,10 +3,16 @@
       xmlns:th="http://www.w3.org/1999/xhtml">
 
     <head th:insert="base/header :: head"></head>
+
     <body>
 
-        <div layout:fragment="content"></div>
+        <div th:insert="base/nav :: nav"></div>
 
-        <div th:insert="base/footer :: footer"></div>
+
+        <div class="container">
+            <div layout:fragment="content"></div>
+        </div>
+
+        <div th:insert="base/scripts :: scripts"></div>
     </body>
 </html>

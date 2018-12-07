@@ -1,0 +1,46 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base/layout}" th:with="title='api documentation'">
+
+    <body>
+
+        <div layout:fragment="content">
+
+            <div class="container bg-light mt-3 p-3">
+
+                <h2>api documentstion</h2>
+
+                <div class="card p-3">
+                    <h3>Getters</h3>
+
+                    <ul>
+                        <li>
+                            all links
+                            <code>/api/links/</code>
+                        </li>
+
+                        <li>
+                            info about 1 links
+                            <code>/api/links/{shortUrl}</code>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card p-3 mt-3">
+                    <h3>Setters</h3>
+
+                    <p>in progress...</p>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </body>
+</html>

@@ -51,8 +51,14 @@ public class LinksWebController {
     }
 
     @RequestMapping("/api")
-    public String apiDoc() {
+    public String apiDocumentation() {
 
-        return "apiDoc";
+        return "api/documentation";
+    }
+
+    @RequestMapping("/about")
+    public String about() {
+
+        return "pages/about";
     }
 }
