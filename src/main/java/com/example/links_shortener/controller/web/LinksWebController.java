@@ -5,8 +5,11 @@ import com.example.links_shortener.repository.LinkRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +22,10 @@ public class LinksWebController {
     @Autowired
     private LinkRepository linkRepository;
 
-    @RequestMapping("/")
-    public String index() {
+    @RequestMapping(value="/", method=RequestMethod.GET)
+    public String index(Model model) {
+
+        model.addAttribute("link", new Link());
 
         return "home";
     }
@@ -32,7 +37,17 @@ public class LinksWebController {
         Map<String, Object> params = new HashMap<>();
         params.put("links", links);
 
-        return new ModelAndView("links", params);
+        return new ModelAndView("link/linksList", params);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String addLink(@ModelAttribute Link link, Model model) {
+
+        model.addAttribute("link", link);
+
+        linkRepository.save(link);
+
+        return "link/linkView";
     }
 
     @RequestMapping("/api")

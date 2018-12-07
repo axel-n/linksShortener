@@ -9,6 +9,15 @@
         <div layout:fragment="content">
             <h1>Hello! this is home page</h1>
 
+            <form action="#" th:action="@{/}" th:object="${link}" method="post">
+                <p>
+                    Url: <input type="text" th:field="*{longUrl}"/>
+                    <input type="submit" value="Submit" />
+                </p>
+            </form>
+
+
+
             <h4>
                 <a href="/user/links">show links</a>
             </h4>
