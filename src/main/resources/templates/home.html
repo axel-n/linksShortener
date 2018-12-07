@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Home page</title>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="base/layout" th:with="title='home page'">
+
     <body>
-        <h1>Hello to main page!</h1>
-        <a href="/user/links">Show links</a>
+
+        <div layout:fragment="content">
+            <h1>Hello! this is home page</h1>
+
+            <h4>
+                <a href="/user/links">show links</a>
+            </h4>
+        </div>
+
     </body>
 </html>

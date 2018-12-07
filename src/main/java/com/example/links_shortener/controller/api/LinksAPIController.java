@@ -18,7 +18,6 @@ public class LinksAPIController {
     @RequestMapping("${spring.data.rest.base-path}/links")
     public Iterable<Link> findAllLinks() {
 
-        Iterable<Link> links = linkRepository.findAll();
         return linkRepository.findAll();
     }
 

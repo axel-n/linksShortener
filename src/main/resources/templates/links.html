@@ -1,32 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>List links</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-</head>
-<body>
-<h2>List of links</h2>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="base/layout" th:with="title='list links'">
 
-<table>
-    <tr>
-        <th>shortUrl</th>
-        <th>longUrl</th>
-        <th>created</th>
-        <th>clicks</th>
+    <body>
 
-    </tr>
+        <div layout:fragment="content">
+            <h2>List of links</h2>
 
-    <tr th:each="link : ${links}">
+            <table>
 
-        <td th:text="${link.shortUrl}">shortUrl</td>
-        <td th:text="${link.longUrl}">longUrl</td>
-        <td th:text="${link.createTime}">created</td>
-        <td th:text="${link.statistic.clicks}">clicks</td>
+                <tr>
+                    <th>shortUrl</th>
+                    <th>longUrl</th>
+                    <th>created</th>
+                    <th>clicks</th>
+                </tr>
 
-    </tr>
-</table>
+                <tr th:each="link : ${links}">
+                    <td th:text="${link.shortUrl}">shortUrl</td>
+                    <td th:text="${link.longUrl}">longUrl</td>
+                    <td th:text="${link.createTime}">created</td>
+                    <td th:text="${link.statistic.clicks}">clicks</td>
+                </tr>
+            </table>
+        </div>
 
-</body>
+    </body>
 </html>
