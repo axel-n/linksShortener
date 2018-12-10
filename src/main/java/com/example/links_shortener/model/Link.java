@@ -10,8 +10,6 @@ import java.util.Formatter;
 import java.util.Random;
 
 @Entity
-@NamedQuery(name = "Link.findByShortUrl", query = "from Link l where l.shortUrl = ?1")
-@NamedQuery(name = "Link.findByUserId", query = "from Link l where l.userId = ?1")
 @Table(name = "links")
 public class Link extends AbstractPersistable<Integer> {
 
