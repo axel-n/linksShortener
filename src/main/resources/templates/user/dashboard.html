@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorate="~{base/layout}" th:with="title='dashboard'">
+
+<body>
+
+    <div layout:fragment="content" class="p-3">
+
+        <h1 >Hello <span sec:authentication="name"></span></h1>
+
+        <form th:action="@{/user/login?logout}" method="post">
+            <input type="submit" value="Log Out"/>
+        </form>
+    </div>
+</body>
+</html>

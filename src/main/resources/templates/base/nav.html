@@ -1,11 +1,37 @@
 <div th:fragment="nav" class="container">
-    <div class="navbar navbar-expand-lg navbar-light bg-light rounded">
-        <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/">Links Shortener</a></h5>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="/user/links">All links</a>
-            <a class="p-2 text-dark" href="/api">Api</a>
-            <a class="p-2 text-dark" href="/about">About</a>
-        </nav>
-        <a class="btn btn-outline-primary" href="#">Log in</a>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+        <h5 class="my-0 mr-md-auto font-weight-normal">
+            <a href="/">Links Shortener</a>
+        </h5>
+        <ul class="navbar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/user/links">All links</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/api">Api</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+            </li>
+
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a class="btn btn-outline-primary" href="/user/login">Log in</a>
+            </li>
+
+            <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/user/dashboard">dashboard</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/user/login?logout">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
 </div>
+
