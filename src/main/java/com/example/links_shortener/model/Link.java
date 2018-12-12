@@ -24,7 +24,7 @@ public class Link extends AbstractPersistable<Integer> {
     private int clicks;
 
     @Column(name = "created")
-    private String createTime;
+    private String created;
 
     @Transient
     private static final int MAX_COUNT_WORDS = 5;
@@ -45,7 +45,7 @@ public class Link extends AbstractPersistable<Integer> {
         this.userId = userId;
         this.longUrl = longUrl;
         this.shortUrl = generateShortUrl();
-        this.createTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Timestamp(System.currentTimeMillis()));
+        this.created = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Timestamp(System.currentTimeMillis()));
 
         return this.shortUrl;
     }
@@ -62,8 +62,8 @@ public class Link extends AbstractPersistable<Integer> {
         return this.shortUrl;
     }
 
-    public String getCreateTime() {
-        return this.createTime;
+    public String getCreated() {
+        return this.created;
     }
 
     public int getClicks() {
@@ -78,7 +78,7 @@ public class Link extends AbstractPersistable<Integer> {
     public String toString() {
         Formatter formatter = new Formatter();
 
-        formatter.format("%n%nshortUrl: %s, longUrl: %s, created: %s, clicks: %s", shortUrl, longUrl, createTime, clicks);
+        formatter.format("%n%nshortUrl: %s, longUrl: %s, created: %s, clicks: %s", shortUrl, longUrl, created, clicks);
 
         return formatter.toString();
     }

@@ -1,4 +1,4 @@
-package com.example.links_shortener.controller.api;
+package com.example.links_shortener.controller.links;
 
 
 import com.example.links_shortener.model.Link;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-public class LinksAPIController {
+public class APIController {
 
     @Autowired
     private LinkRepository linkRepository;

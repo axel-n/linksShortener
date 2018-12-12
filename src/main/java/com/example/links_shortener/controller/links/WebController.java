@@ -1,4 +1,4 @@
-package com.example.links_shortener.controller.web;
+package com.example.links_shortener.controller.links;
 
 import com.example.links_shortener.model.Link;
 import com.example.links_shortener.repository.LinkRepository;
@@ -17,7 +17,7 @@ import java.util.Map;
 
 
 @Controller
-public class LinksWebController {
+public class WebController {
 
     @Autowired
     private LinkRepository linkRepository;
