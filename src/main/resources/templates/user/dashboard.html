@@ -10,10 +10,6 @@
     <div layout:fragment="content" class="p-3">
 
         <h1 >Hello <span sec:authentication="name"></span></h1>
-
-        <form th:action="@{/user/login?logout}" method="post">
-            <input type="submit" value="Log Out"/>
-        </form>
     </div>
 </body>
 </html>

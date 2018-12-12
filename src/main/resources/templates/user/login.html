@@ -10,7 +10,7 @@
 
         <div class="col-4 mx-auto">
             <form name="f" th:action="@{/user/login}" method="post" class="form-signin">
-                <h3 class="form-signin-heading">Please sign in</h3>
+                <h3 class="form-signin-heading">Log in</h3>
 
                 <p th:if="${param.error}" class="alert alert-warning">
                     Wrong user or password
@@ -28,7 +28,7 @@
                        class="form-control mb-2" name="password"
                        placeholder="Password" required="">
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
             </form>
 
             <p class="mt-2">Not on site yet? <a href="/user/registration">registration</a></p>

@@ -3,6 +3,7 @@ package com.example.links_shortener.controller.security;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class SecurityController {
@@ -15,8 +16,6 @@ public class SecurityController {
 
     @PostMapping(value = "/user/login")
     public String validateUser() {
-
-//        model.addAttribute("user", user);
 
         System.out.println("user submit form");
 

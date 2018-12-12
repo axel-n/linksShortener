@@ -15,17 +15,17 @@
 		<!--libs -->
 		<spring-boot-starter.version>2.0.5.RELEASE</spring-boot-starter.version>
 		<thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
-		<!--<spring-security.version>5.1.2.RELEASE</spring-security.version>-->
+		<thymeleaf-extras-springsecurity4.version>3.0.4.RELEASE</thymeleaf-extras-springsecurity4.version>
 		<log4j.version>2.11.1</log4j.version>
 		<h2.version>1.4.197</h2.version>
 		<junit.version>4.12</junit.version>
 		<javax.persistence-api.version>2.2</javax.persistence-api.version>
+		<spring-security-test.version>5.1.2.RELEASE</spring-security-test.version>
 	</properties>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<!--<version>2.1.1.RELEASE</version>-->
 		<version>2.0.5.RELEASE</version>
 	</parent>
 
@@ -97,13 +97,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+			<version>${spring-boot-starter.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+			<version>${thymeleaf-extras-springsecurity4.version}</version>
 		</dependency>
-
 
 		<!--for tests -->
 		<dependency>
@@ -124,6 +125,7 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+			<version>${spring-security-test.version}</version>
 		</dependency>
 
 	</dependencies>
