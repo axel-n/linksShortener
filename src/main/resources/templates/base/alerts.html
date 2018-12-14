@@ -1,0 +1,7 @@
+<div th:fragment="alerts">
+    <div th:if="${messages}" class="alerts">
+        <div th:each="message : ${messages}" th:class="'fade show alert alert-' + ${message.type}" role="alert">
+            <span th:text="${message.text}"></span>
+        </div>
+    </div>
+</div>

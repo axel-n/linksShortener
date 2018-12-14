@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -18,6 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserRepository userRepository;
+
 
     @Override
     public void configure(final WebSecurity web) throws Exception {
@@ -35,6 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/user/login")
                     .failureForwardUrl("/user/login?error")
                     .permitAll()
+                    .and()
+                .sessionManagement()
                     .and()
                 .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))

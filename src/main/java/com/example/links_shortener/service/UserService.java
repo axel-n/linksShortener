@@ -1,7 +1,6 @@
 package com.example.links_shortener.service;
 
 import com.example.links_shortener.dto.UserDto;
-import com.example.links_shortener.error.EmailExistsException;
 import com.example.links_shortener.model.User;
 import com.example.links_shortener.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +16,10 @@ public class UserService implements IUserService {
 
     @Transactional
     @Override
-    public User registerNewUserAccount(UserDto accountDto)
-            throws EmailExistsException {
+    public User registerNewUserAccount(UserDto accountDto) {
 
         if (emailExist(accountDto.getEmail())) {
-            throw new EmailExistsException(
-                    "There is an account with that email adress: "
-                            +  accountDto.getEmail());
+            return null;
         }
 
         User user = new User();

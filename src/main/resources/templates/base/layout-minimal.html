@@ -1,15 +1,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:th="http://www.w3.org/1999/xhtml">
 
     <head th:insert="base/header :: head"></head>
 
     <body>
 
+        <div th:insert="base/alerts :: alerts"></div>
+
+
         <div class="container p-5">
             <div layout:fragment="content"></div>
         </div>
 
+        <div th:insert="base/scripts :: scripts"></div>
     </body>
 </html>

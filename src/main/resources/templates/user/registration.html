@@ -12,16 +12,11 @@
 
             <h3 class="form-signin-heading">Registration</h3>
 
-            <div th:if="${error}" class="alert alert-warning">
-                ${error}
-            </div>
-
-
             <form th:action="@{/user/registration}" th:object="${user}" method="post">
 
                 <label for="username" class="sr-only">Username</label>
                 <input type="text" th:field="*{username}" id="username" class="form-control mb-2"
-                       placeholder="username" required="" autofocus="">
+                       placeholder="Username" required="" autofocus="">
 
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" th:field="*{password}" id="inputPassword"
