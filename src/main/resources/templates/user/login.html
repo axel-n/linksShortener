@@ -9,22 +9,25 @@
     <div layout:fragment="content" class="text-center">
 
         <div class="col-4 mx-auto">
-            <form name="f" th:action="@{/user/login}" method="post" class="form-signin">
-                <h3 class="form-signin-heading">Log in</h3>
 
-                <p th:if="${param.error}" class="alert alert-warning">
-                    Wrong user or password
-                </p>
+            <h3 class="form-signin-heading">Log in</h3>
 
-                <div th:if="${param.logout}" class="alert alert-success">
-                    You have been logged out.
-                </div>
+            <p th:if="${param.error}" class="alert alert-warning">
+                Wrong email or password
+            </p>
 
-                <label for="username" class="sr-only">Username</label>
-                <input type="text" value="user" id="username" class="form-control mb-2"
-                       placeholder="username" name="username" required="" autofocus="">
+            <div th:if="${param.logout}" class="alert alert-success">
+                You have been logged out.
+            </div>
+
+            <form th:action="@{/user/login}" method="post" th:object="${user}" class="form-signin">
+
+                <label for="inputEmail" class="sr-only">Email</label>
+                <input type="email" id="inputEmail" name="email" class="form-control mb-2"
+                       placeholder="email" required="" autofocus="">
+
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" value="password" id="inputPassword"
+                <input type="password" id="inputPassword"
                        class="form-control mb-2" name="password"
                        placeholder="Password" required="">
 

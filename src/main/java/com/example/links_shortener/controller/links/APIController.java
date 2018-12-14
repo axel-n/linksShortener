@@ -2,7 +2,7 @@ package com.example.links_shortener.controller.links;
 
 
 import com.example.links_shortener.model.Link;
-import com.example.links_shortener.repository.LinkRepository;
+import com.example.links_shortener.dao.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

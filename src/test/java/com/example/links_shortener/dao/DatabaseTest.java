@@ -1,4 +1,4 @@
-package com.example.links_shortener.repository;
+package com.example.links_shortener.dao;
 
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;

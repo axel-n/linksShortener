@@ -1,7 +1,7 @@
 package com.example.links_shortener.controller.links;
 
 import com.example.links_shortener.model.Link;
-import com.example.links_shortener.repository.LinkRepository;
+import com.example.links_shortener.dao.LinkRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class WebController {
     @Autowired
     private LinkRepository linkRepository;
 
-    @RequestMapping(value="/", method=RequestMethod.GET)
+    @RequestMapping(value="/")
     public String index(Model model) {
 
         model.addAttribute("link", new Link());

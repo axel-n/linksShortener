@@ -1,4 +1,4 @@
-package com.example.links_shortener.repository;
+package com.example.links_shortener.dao;
 
 import com.example.links_shortener.model.Link;
 
@@ -71,7 +71,7 @@ public class LinkServiceTest extends DatabaseTest {
     public void SaveLinkForAuthorizedUser() {
 
         User user1 = new User();
-        user1.setName(TEST_USER_NAME);
+        user1.setUsername(TEST_USER_NAME);
         int userId =  userRepository.save(user1).getId();
 
         // check empty links for new user

@@ -9,7 +9,8 @@
 
     <div layout:fragment="content" class="p-3">
 
-        <h1 >Hello <span sec:authentication="name"></span></h1>
+        <h1 >Hello <span th:text=${user.username}></span></h1>
+
     </div>
 </body>
 </html>

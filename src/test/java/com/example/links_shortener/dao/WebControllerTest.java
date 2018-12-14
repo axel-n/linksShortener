@@ -1,4 +1,4 @@
-package com.example.links_shortener.repository;
+package com.example.links_shortener.dao;
 
 import com.example.links_shortener.model.Link;
 import org.junit.Test;
