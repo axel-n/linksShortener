@@ -1,14 +1,8 @@
 package com.example.links_shortener.model;
-
-
 import org.springframework.data.jpa.domain.AbstractPersistable;
-import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Formatter;
-import java.util.List;
+
 
 @Entity
 @Table(name = "users")
