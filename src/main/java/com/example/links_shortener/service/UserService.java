@@ -12,8 +12,6 @@ import javax.transaction.Transactional;
 @Service
 public class UserService implements IUserService {
 
-    private final String DEFAULT_ROLE = "ROLE_USER";
-
     @Autowired
     private UserRepository repository;
 

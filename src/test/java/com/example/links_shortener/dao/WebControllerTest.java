@@ -53,8 +53,19 @@ public class WebControllerTest extends DatabaseTest {
     }
 
     @Test
-    public void notFound() {
-        // TODO
-        // this
+    public void LinkNotFound() {
+
+        Link link1 = new Link();
+
+        link1.setLongUrl(TEST_URL1);
+        linkRepository.save(link1);
+
+        // goto to longUrl by shortUrl
+         final String WRONG_SHORT_URL = "abc";
+        try {
+            this.mockMvc.perform(get("/" + WRONG_SHORT_URL)).andDo(print()).andExpect(status().isNotFound());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
