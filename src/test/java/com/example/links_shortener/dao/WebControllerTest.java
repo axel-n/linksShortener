@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class WebControllerTest extends DatabaseTest {
 
-    private static final String TEST_URL1 = "test1.com";
+    private static final String TEST_URL1 = "https://ya.ru";
 
     @Autowired
     private LinkRepository linkRepository;
@@ -42,7 +42,7 @@ public class WebControllerTest extends DatabaseTest {
 
         // goto to longUrl by shortUrl
         try {
-            this.mockMvc.perform(get("/" + resultShortUrl)).andDo(print()).andExpect(status().isOk());
+            this.mockMvc.perform(get("/" + resultShortUrl)).andDo(print()).andExpect(status().is3xxRedirection());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,6 +64,21 @@ public class WebControllerTest extends DatabaseTest {
          final String WRONG_SHORT_URL = "abc";
         try {
             this.mockMvc.perform(get("/" + WRONG_SHORT_URL)).andDo(print()).andExpect(status().isNotFound());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void CheckMoveToLongUrl() {
+
+        Link link1 = new Link();
+
+        link1.setLongUrl(TEST_URL1);
+        String shorlUrl = linkRepository.save(link1).getShortUrl();
+
+        try {
+            this.mockMvc.perform(get("/" + shorlUrl)).andDo(print()).andExpect(status().is3xxRedirection());
         } catch (Exception e) {
             e.printStackTrace();
         }
