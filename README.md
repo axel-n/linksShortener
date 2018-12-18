@@ -16,4 +16,8 @@
     - показывает главную со всеми данными в виде таблицы
     - добавление данных
 
+## Как запускать
+- или из консоли (mvn spring-boot:run)
+- или через ide (Application.java - main)
+
 ![screnshot](screenshots/screenshot-home_page.png)
