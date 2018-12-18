@@ -1,8 +1,8 @@
 # Cокращатель ссылок
 
 ## Используется
-- spring
-- thymeleaf
+- spring (security, jpa, web элементы)
+- thymeleaf (layout'ы, базовые элементы, проверка авторизованного пользователя, ...)
 - h2
 - junit4
 
