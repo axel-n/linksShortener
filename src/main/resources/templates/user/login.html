@@ -16,6 +16,10 @@
                 Wrong email or password
             </p>
 
+            <p th:if="${param.registration}" class="alert alert-warning">
+                Success registration!
+            </p>
+
             <div th:if="${param.logout}" class="alert alert-success">
                 You have been logged out.
             </div>

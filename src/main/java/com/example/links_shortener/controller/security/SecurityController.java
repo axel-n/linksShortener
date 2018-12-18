@@ -38,7 +38,7 @@ public class SecurityController {
 
         final User registered = userService.registerNewUserAccount(accountDto);
 
-        return new ModelAndView("redirect:/user/dashboard");
+        return new ModelAndView("redirect:/user/login?registration");
     }
 
     @RequestMapping("/user/dashboard")

@@ -4,12 +4,15 @@ import com.example.links_shortener.dto.UserDto;
 import com.example.links_shortener.model.User;
 import com.example.links_shortener.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Service
 public class UserService implements IUserService {
+
+    private final String DEFAULT_ROLE = "ROLE_USER";
 
     @Autowired
     private UserRepository repository;
@@ -24,9 +27,14 @@ public class UserService implements IUserService {
 
         User user = new User();
         user.setUsername(accountDto.getUsername());
-        user.setPassword(accountDto.getPassword());
-        user.setEmail(accountDto.getEmail());
         user.setEnabled(true);
+        user.setRole(DEFAULT_ROLE);
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
+        String  encodedPassword = encoder.encode(accountDto.getPassword());
+
+        user.setPassword(encodedPassword);
+        user.setEmail(accountDto.getEmail());
 
         return repository.save(user);
 
