@@ -13,12 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 @Controller
 public class SecurityController {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
+
+    private ArrayList<HashMap<String, String>> messages = new ArrayList<>();
+    private Message message;
 
     @Autowired
     private IUserService userService;
@@ -34,11 +39,20 @@ public class SecurityController {
     }
 
     @PostMapping(value = "/user/registration")
-    public ModelAndView registerUserAccount(@Valid final UserDto accountDto, BindingResult bindingResult, Model model) {
+    public String registerUserAccount(@Valid final UserDto accountDto, BindingResult bindingResult, Model model) {
 
         final User registered = userService.registerNewUserAccount(accountDto);
 
-        return new ModelAndView("redirect:/user/login?registration");
+        if (registered != null) {
+            log.info("registered user {}", registered);
+            return "redirect:/user/login?registration";
+        } else {
+            message = new Message("warning", "Email not unique!");
+            messages.add(message.getMessage());
+            model.addAttribute("messages", messages);
+
+            return "user/login";
+        }
     }
 
     @RequestMapping("/user/dashboard")
