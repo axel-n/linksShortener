@@ -2,19 +2,14 @@ package com.example.links_shortener.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-//import com.example.links_shortener.controller.security.SecurityController.ValidEmail;
-//import com.example.links_shortener.controller.security.SecurityController.PasswordMatches;
-
 import java.util.Formatter;
+import com.example.links_shortener.dto.PasswordMatches;
 
 /**
-* We need a Data Transfer Object to send all of the registration
-* information to our Spring backend. The DTO object should have all
-* the information we’ll require later on when we create
-* and populate our User object
+* Validate user data
 * */
 
-// @PasswordMatches
+@PasswordMatches
 public class UserDto {
     @NotNull
     @NotEmpty
@@ -23,9 +18,11 @@ public class UserDto {
     @NotNull
     @NotEmpty
     private String password;
+
+    @NotNull
+    @NotEmpty
     private String matchingPassword;
 
-    //@ValidEmail
     @NotNull
     @NotEmpty
     private String email;
@@ -70,5 +67,6 @@ public class UserDto {
 
         return formatter.toString();
     }
+
 }
 

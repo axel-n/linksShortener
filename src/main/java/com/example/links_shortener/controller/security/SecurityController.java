@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,19 +40,23 @@ public class SecurityController {
     }
 
     @PostMapping(value = "/user/registration")
-    public String registerUserAccount(@Valid final UserDto accountDto, BindingResult bindingResult, Model model) {
+    public ModelAndView registerUserAccount(@Valid final UserDto accountDto, BindingResult result, Model model) {
 
-        final User registered = userService.registerNewUserAccount(accountDto);
-
-        if (registered != null) {
-            log.info("registered user {}", registered);
-            return "redirect:/user/login?registration";
+        if (result.hasErrors()) {
+            return new ModelAndView("user/registration", "user", accountDto);
         } else {
-            message = new Message("warning", "Email not unique!");
-            messages.add(message.getMessage());
-            model.addAttribute("messages", messages);
+            final User registered = userService.registerNewUserAccount(accountDto);
 
-            return "user/login";
+            if (registered == null) {
+
+                message = new Message("warning", "email already registered!");
+                messages.add(message.getMessage());
+                model.addAttribute("messages", messages);
+
+                return new ModelAndView("user/login");
+            } else {
+                return new ModelAndView("redirect:/user/login?registration");
+            }
         }
     }
 
