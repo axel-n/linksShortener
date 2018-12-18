@@ -23,7 +23,6 @@ public class Application {
         User user = new User();
         user.setUsername("alex");
         user.setEnabled(true);
-        user.setRole("ROLE_USER");
 
         // Create an encoder with strength 11
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);

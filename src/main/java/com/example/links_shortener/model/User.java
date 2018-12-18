@@ -14,8 +14,12 @@ public class User extends AbstractPersistable<Integer> {
     private boolean enabled;
     private String role;
 
+    private final String DEFAULT_ROLE = "ROLE_USER";
+
     // default constructor for spring. don't remove
-    public User() { }
+    public User() {
+        this.role = DEFAULT_ROLE;
+    }
 
     public String getUsername() {
         return username;
@@ -51,10 +55,6 @@ public class User extends AbstractPersistable<Integer> {
 
     public String getRole() {
         return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     @Override

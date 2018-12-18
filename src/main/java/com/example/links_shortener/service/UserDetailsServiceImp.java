@@ -31,7 +31,7 @@ public class UserDetailsServiceImp implements UserDetailsService{
             throw new UsernameNotFoundException("Invalid User");
         } else {
             List<GrantedAuthority> roles = new ArrayList<>();
-            roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+            roles.add(new SimpleGrantedAuthority(user.getRole()));
 
             List<GrantedAuthority> grantedAuthorities = roles;
 
