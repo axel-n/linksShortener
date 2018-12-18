@@ -7,3 +7,7 @@ function closeAlerts() {
     $(".alert").alert('close');
     }, 3000);
 }
+
+function showModal() {
+    $("#savedLinkData").modal();
+}

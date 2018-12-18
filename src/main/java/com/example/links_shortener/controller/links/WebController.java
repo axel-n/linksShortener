@@ -44,11 +44,9 @@ public class WebController {
     @PostMapping(value = "/")
     public String addLink(@ModelAttribute Link link, Model model) {
 
-        model.addAttribute("link", link);
+        model.addAttribute("link", linkRepository.save(link));
 
-        linkRepository.save(link);
-
-        return "link/linkView";
+        return "home";
     }
 
     @RequestMapping("/api")

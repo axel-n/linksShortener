@@ -24,6 +24,35 @@
                 </form>
             </div>
 
+            <!-- Modal -->
+            <div th:if=${link.shortUrl} class="modal fade" id="savedLinkData" tabindex="-1" role="dialog" aria-labelledby="savedLinkDataLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTitle">Your saved link</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>shortUrl - <span th:text="${link.shortUrl}"></span></p>
+                            <p>longUrl - <span th:text="${link.longUrl}"></span></p>
+
+                            <a href="/">Submit another link</a>
+
+                            <p>You can view links with statistic if <a href="/login">log in</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+        <script th:if=${link.shortUrl} layout:fragment="additional-scripts" >
+             window.onload = function() {
+                showModal();
+             };
+        </script>
+
     </body>
 </html>
