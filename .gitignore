@@ -15,17 +15,6 @@
 *.iws
 *.iml
 *.ipr
+*.attach_pid*
 
-### NetBeans ###
-/nbproject/private/
-/build/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-# js libraries
-node_modules
-
-# js compiled
-src/main/resources/static/built
+logs/

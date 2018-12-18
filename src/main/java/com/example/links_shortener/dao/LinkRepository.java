@@ -1,10 +1,11 @@
-package com.example.links_shortener.repository;
+package com.example.links_shortener.dao;
 
 import com.example.links_shortener.model.Link;
-import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
-public interface LinkRepository extends CrudRepository<Link, Integer>{
+import java.util.List;
+
+public interface LinkRepository extends CrudRepository<Link, Integer> {
 
     Link findByShortUrl(String shortUrl);
     List<Link> findByUserId (int userId);

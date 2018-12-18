@@ -6,26 +6,39 @@
 
 <body>
 
-    <div layout:fragment="content" class="text-center">
+<div layout:fragment="content" class="text-center">
 
-        <div class="col-4 mx-auto">
-            <form name="f" th:action="@{/user/registration}" method="post">
+    <div class="col-4 mx-auto">
 
-                <h3 class="form-signin-heading">Registration</h3>
+        <h3 class="form-signin-heading">Registration</h3>
 
-                <label for="name" class="sr-only">Username</label>
-                <input type="text" value="user" id="name" class="form-control mb-2"
-                       placeholder="username" required="" autofocus="">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" value="some_password" id="inputPassword"
-                       class="form-control mb-2"
-                       placeholder="Password" required="">
+        <form th:action="@{/user/registration}" th:object="${user}" method="post">
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-            </form>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" th:field="*{username}" id="username"
+                   class="form-control mb-2"
+                   placeholder="Username" required="" autofocus="">
 
-        </div>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" th:field="*{password}" id="inputPassword"
+                   class="form-control mb-2"
+                   placeholder="Password" required="">
+
+            <label for="inputMatchingPassword" class="sr-only">Password repeat</label>
+            <input type="password" th:field="*{matchingPassword}" id="inputMatchingPassword"
+                   class="form-control mb-2"
+                   placeholder="Password repeat" required="">
+
+            <label for="inputEmail" class="sr-only">Email</label>
+            <input type="email" th:field="*{email}" id="inputEmail"
+                   class="form-control mb-2"
+                   placeholder="Email" required="">
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        </form>
 
     </div>
+
+</div>
 </body>
 </html>
