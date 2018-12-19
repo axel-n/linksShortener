@@ -41,21 +41,41 @@ public class WebController {
         return "home";
     }
 
-    @PostMapping(value = "/link")
-    public String addLink(@ModelAttribute Link linkDto, Model model, Authentication authentication) {
+    private Link addLink(String longUrl, Authentication authentication) {
 
-        Link link = new Link(linkDto.getLongUrl());
+        Link link = new Link(longUrl);
 
         if (authentication != null) {
             User loggedUser = userRepository.findByEmail(authentication.getName());
             link.setUserId(loggedUser.getId());
         }
 
-        model.addAttribute("link", linkRepository.save(link));
+        link = linkRepository.save(link);
+        log.info("save {}", link);
 
-        log.info("save {}" , link);
+        return link;
+    }
+
+    @PostMapping(value = "/link")
+
+    public String addLinkFromHomepage(@ModelAttribute Link linkDto, Model model, Authentication authentication) {
+
+        Link link = addLink(linkDto.getLongUrl(), authentication);
+
+        model.addAttribute("link", link);
 
         return "home";
+    }
+
+    @PostMapping(value = "/user/link")
+    // from a index page (logged and not logged users)
+    public String addLinkFromDashboard(@ModelAttribute Link linkDto, Model model, Authentication authentication) {
+
+        Link link = addLink(linkDto.getLongUrl(), authentication);
+
+        model.addAttribute("link", link);
+
+        return "redirect:/user/dashboard";
     }
 
     @RequestMapping("/api")

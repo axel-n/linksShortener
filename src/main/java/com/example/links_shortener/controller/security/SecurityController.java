@@ -3,6 +3,7 @@ package com.example.links_shortener.controller.security;
 import com.example.links_shortener.dao.LinkRepository;
 import com.example.links_shortener.dao.UserRepository;
 import com.example.links_shortener.dto.UserDto;
+import com.example.links_shortener.model.Link;
 import com.example.links_shortener.model.User;
 import com.example.links_shortener.service.IUserService;
 import org.slf4j.Logger;
@@ -74,7 +75,9 @@ public class SecurityController {
 
         int userId = userRepository.findByEmail(authentication.getName()).getId();
 
-        model.addAttribute("links", linkRepository.findByUserId(userId));
+        model.addAttribute("savedLinks", linkRepository.findByUserId(userId));
+
+        model.addAttribute("link", new Link());
 
         return "user/dashboard";
     }

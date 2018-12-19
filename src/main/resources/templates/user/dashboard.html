@@ -2,37 +2,88 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{base/layout}" th:with="title='dashboard'"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      layout:decorate="~{base/layout}" th:with="title='dashboard'">
 
 <body>
 
-<div layout:fragment="content" class="p-3">
+<div layout:fragment="content">
 
+    <!-- Modal -->
+    <div class="modal fade" id="addNewLink" tabindex="-1" role="dialog" aria-labelledby="addNewLinkLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
 
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Add new link</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-    <div class="links mt-3">
-        <h2>Your links</h2>
+                <div class="modal-body">
+                    <div class="mx-auto">
+                        <form th:action="@{/user/link}" th:object="${link}" method="post">
+                            <div class="input-group">
+                                <input type="text" th:field="*{longUrl}" class="form-control" placeholder="some url">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-secondary">submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-        <table class="table table-striped mt-3">
-            <thead>
-            <tr>
-                <th>shortUrl</th>
-                <th>longUrl</th>
-                <th>created</th>
-                <th>clicks</th>
-            </tr>
-            </thead>
+            </div>
+        </div>
+    </div>
 
-            <tbody>
-            <tr th:each="link : ${links}">
-                <td th:text="${link.shortUrl}">shortUrl</td>
-                <td th:text="${link.longUrl}">longUrl</td>
-                <td th:text="${link.created}">created</td>
-                <td th:text="${link.clicks}">clicks</td>
-            </tr>
-            </tbody>
-        </table>
+    <h3 th:if="${#lists.size(savedLinks) == 0}" class="text-center">
+        your links not found. try
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewLink">add new</button>
+    </h3>
+
+    <div th:if="${#lists.size(savedLinks) > 0}" class="container-fluid">
+        <div class="row">
+            <div class="col links">
+
+                <div class="row">
+                    <div class="col">
+                        <h4>Your links</h4>
+                    </div>
+
+                    <div class="col-3 text-right">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewLink">
+                            Add new link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                <table class="table table-striped mt-3">
+                    <thead>
+                    <tr>
+                        <th>shortUrl</th>
+                        <th>longUrl</th>
+                        <th>created</th>
+                        <th>clicks</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="link : ${savedLinks}">
+                        <td th:text="${link.shortUrl}">shortUrl</td>
+                        <td th:text="${link.longUrl}">longUrl</td>
+                        <td th:text="${link.created}">created</td>
+                        <td th:text="${link.clicks}">clicks</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
 </div>
