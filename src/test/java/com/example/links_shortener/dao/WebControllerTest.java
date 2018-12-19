@@ -8,9 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,13 +27,12 @@ public class WebControllerTest extends DatabaseTest {
     private MockMvc mockMvc;
 
     @Test
-    public void openLink() {
+    public void openLinkAndRedirect() {
 
-        Link link1 = new Link();
+        Link link1 = new Link(TEST_URL1);
 
         // receive user from browser/api (before save in bd)
-        String resultShortUrl = link1.setLongUrl(TEST_URL1);
-        linkRepository.save(link1);
+        String resultShortUrl = linkRepository.save(link1).getShortUrl();
 
         int clickBeforeOpen  = link1.getClicks();
         assertEquals(0, clickBeforeOpen);
@@ -55,9 +52,7 @@ public class WebControllerTest extends DatabaseTest {
     @Test
     public void LinkNotFound() {
 
-        Link link1 = new Link();
-
-        link1.setLongUrl(TEST_URL1);
+        Link link1 = new Link(TEST_URL1);
         linkRepository.save(link1);
 
         // goto to longUrl by shortUrl

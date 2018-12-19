@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -29,10 +28,10 @@ public class LinkServiceTest extends DatabaseTest {
     @Test
     public void SaveOneLinkGuest() {
 
-        Link link1 = new Link();
+        Link link1 = new Link(TEST_URL1);
 
         // receive user from browser/api (before save in bd)
-        String resultShortUrl = link1.setLongUrl(TEST_URL1);
+        String resultShortUrl = link1.getShortUrl();
         assertNotNull(resultShortUrl);
 
         // receive user from browser/api (after save in bd)
@@ -51,12 +50,8 @@ public class LinkServiceTest extends DatabaseTest {
         int sizeBeforeSave = linkRepository.findAll().size();
         assertEquals(0, sizeBeforeSave);
 
-        Link link1 = new Link();
-        Link link2 = new Link();
-
-        // receive user from browser/api (before save in bd)
-        link1.setLongUrl(TEST_URL1);
-        link2.setLongUrl(TEST_URL2);
+        Link link1 = new Link(TEST_URL1);
+        Link link2 = new Link(TEST_URL2);
 
         // receive user from browser/api (after save in bd)
         linkRepository.save(link1);
@@ -78,10 +73,9 @@ public class LinkServiceTest extends DatabaseTest {
         int countLinkByUserBefore = linkRepository.findByUserId(userId).size();
         assertEquals(0, countLinkByUserBefore);
 
-        Link link1 = new Link();
-
-        // receive user from browser/api (before save in bd)
-        String shortUrl1 = link1.setLongUrl(TEST_URL1, userId);
+        Link link1 = new Link(TEST_URL1);
+        link1.setUserId(userId);
+        String shortUrl1 = link1.getShortUrl();
 
         // receive user from browser/api (after save in bd)
         Link savedLink = linkRepository.save(link1);
