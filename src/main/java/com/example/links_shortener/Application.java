@@ -24,9 +24,8 @@ public class Application {
         user.setUsername("alex");
         user.setEnabled(true);
 
-        // Create an encoder with strength 11
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
-		String  encodedPassword = encoder.encode("123456");
+        // Create an encoder pass with strength 11
+		String  encodedPassword = new BCryptPasswordEncoder(11).encode("123456");
 
         user.setPassword(encodedPassword);
         user.setEmail("alex@gmail.com");
