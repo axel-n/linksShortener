@@ -41,16 +41,6 @@ public class WebController {
         return "home";
     }
 
-    @RequestMapping("/user/links")
-    public ModelAndView showLinks() {
-        List<Link> links = linkRepository.findAll();
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("links", links);
-
-        return new ModelAndView("link/linksList", params);
-    }
-
     @PostMapping(value = "/link")
     public String addLink(@ModelAttribute Link linkDto, Model model, Authentication authentication) {
 

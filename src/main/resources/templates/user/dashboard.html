@@ -7,12 +7,34 @@
 
 <body>
 
-    <div layout:fragment="content" class="p-3">
+<div layout:fragment="content" class="p-3">
 
-        <h1>hi user! your email
-            <span sec:authentication="name"></span>
-        </h1>
 
+
+    <div class="links mt-3">
+        <h2>Your links</h2>
+
+        <table class="table table-striped mt-3">
+            <thead>
+            <tr>
+                <th>shortUrl</th>
+                <th>longUrl</th>
+                <th>created</th>
+                <th>clicks</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="link : ${links}">
+                <td th:text="${link.shortUrl}">shortUrl</td>
+                <td th:text="${link.longUrl}">longUrl</td>
+                <td th:text="${link.created}">created</td>
+                <td th:text="${link.clicks}">clicks</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+
+</div>
 </body>
 </html>

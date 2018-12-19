@@ -1,11 +1,14 @@
 package com.example.links_shortener.controller.security;
 
+import com.example.links_shortener.dao.LinkRepository;
+import com.example.links_shortener.dao.UserRepository;
 import com.example.links_shortener.dto.UserDto;
 import com.example.links_shortener.model.User;
 import com.example.links_shortener.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +31,12 @@ public class SecurityController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private LinkRepository linkRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping(value = "/user/registration")
     public String showRegistrationForm(Model model) {
@@ -61,7 +70,12 @@ public class SecurityController {
     }
 
     @RequestMapping("/user/dashboard")
-    public String dashboard() {
+    public String dashboard(Authentication authentication, Model model) {
+
+        int userId = userRepository.findByEmail(authentication.getName()).getId();
+
+        model.addAttribute("links", linkRepository.findByUserId(userId));
+
         return "user/dashboard";
     }
 
