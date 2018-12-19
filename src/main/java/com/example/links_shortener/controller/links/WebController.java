@@ -1,9 +1,14 @@
 package com.example.links_shortener.controller.links;
 
+import com.example.links_shortener.dao.UserRepository;
 import com.example.links_shortener.model.Link;
 import com.example.links_shortener.dao.LinkRepository;
 
+import com.example.links_shortener.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +25,13 @@ import java.util.Map;
 @Controller
 public class WebController {
 
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private LinkRepository linkRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping(value="/")
     public String index(Model model) {
@@ -41,10 +51,19 @@ public class WebController {
         return new ModelAndView("link/linksList", params);
     }
 
-    @PostMapping(value = "/")
-    public String addLink(@ModelAttribute Link link, Model model) {
+    @PostMapping(value = "/link")
+    public String addLink(@ModelAttribute Link linkDto, Model model, Authentication authentication) {
+
+        Link link = new Link(linkDto.getLongUrl());
+
+        if (authentication != null) {
+            User loggedUser = userRepository.findByEmail(authentication.getName());
+            link.setUserId(loggedUser.getId());
+        }
 
         model.addAttribute("link", linkRepository.save(link));
+
+        log.info("save {}" , link);
 
         return "home";
     }

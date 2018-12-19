@@ -61,7 +61,7 @@ public class User extends AbstractPersistable<Integer> {
     public String toString() {
 
         Formatter formatter = new Formatter();
-        formatter.format("%nid: %s,username: %s, password: %s, email: %s",
+        formatter.format("User {id: %s,username: %s, password: %s, email: %s}",
                 getId(), username, password, email);
 
         return formatter.toString();

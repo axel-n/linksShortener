@@ -37,21 +37,24 @@ public class Link extends AbstractPersistable<Integer> {
     public Link() {
     }
 
-    public String setLongUrl(String longUrl) {
-        return setLongUrl(longUrl, DEFAULT_USER_ID);
-    }
-
-    public String setLongUrl(String longUrl, int userId) {
-        this.userId = userId;
+    public Link(String longUrl) {
         this.longUrl = longUrl;
         this.shortUrl = generateShortUrl();
-        this.created = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Timestamp(System.currentTimeMillis()));
+        this.created = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Timestamp(System.currentTimeMillis()));
+        this.userId = DEFAULT_USER_ID;
+    }
 
-        return this.shortUrl;
+
+    public void setLongUrl(String longUrl) {
+        this.longUrl = longUrl;
     }
 
     public int getUserId() {
         return this.userId;
+    }
+
+    public void setUserId(int userId) {
+       this.userId = userId;
     }
 
     public String getLongUrl() {
@@ -77,9 +80,7 @@ public class Link extends AbstractPersistable<Integer> {
     @Override
     public String toString() {
         Formatter formatter = new Formatter();
-
-        formatter.format("%n%nshortUrl: %s, longUrl: %s, created: %s, clicks: %s", shortUrl, longUrl, created, clicks);
-
+        formatter.format("Link {id: %s, shortUrl: %s, longUrl: %s, created: %s, userId: %s, clicks: %s}", getId(), shortUrl, longUrl, created, userId, clicks);
         return formatter.toString();
     }
 

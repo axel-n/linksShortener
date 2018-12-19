@@ -14,7 +14,7 @@
             </div>
 
             <div class="col-sm-8 mx-auto">
-                <form th:action="@{/}" th:object="${link}" method="post" class="p-2" >
+                <form th:action="@{/link}" th:object="${link}" method="post" class="p-2" >
                     <div class="input-group">
                         <input type="text" th:field="*{longUrl}" class="form-control" placeholder="some url">
                         <div class="input-group-append">
