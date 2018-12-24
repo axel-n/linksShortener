@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 
+import java.util.List;
+
 public class LinkService implements ILinkService {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
@@ -31,5 +33,21 @@ public class LinkService implements ILinkService {
         log.info("save {}", link);
 
         return link;
+    }
+
+    public Link findByShortUrl(String shortUrl) {
+        return linkRepository.findByShortUrl(shortUrl);
+    }
+
+    public List<Link> findByUserId(int userId) {
+        return linkRepository.findByUserId(userId);
+    }
+
+    public List<Link> findAll(){
+        return linkRepository.findAll();
+    }
+
+    public Link save(Link link) {
+        return linkRepository.save(link);
     }
 }
