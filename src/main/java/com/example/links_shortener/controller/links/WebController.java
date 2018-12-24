@@ -1,37 +1,30 @@
 package com.example.links_shortener.controller.links;
 
-import com.example.links_shortener.dao.UserRepository;
 import com.example.links_shortener.model.Link;
-import com.example.links_shortener.dao.LinkRepository;
-
-import com.example.links_shortener.model.User;
+import com.example.links_shortener.service.LinkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 
 @Controller
 public class WebController {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private LinkRepository linkRepository;
+    @Bean
+    private LinkService linkService() {
+        return new LinkService();
+    }
 
     @Autowired
-    private UserRepository userRepository;
+    private LinkService linkService;
 
     @RequestMapping(value="/")
     public String index(Model model) {
@@ -40,27 +33,10 @@ public class WebController {
 
         return "home";
     }
-
-    private Link addLink(String longUrl, Authentication authentication) {
-
-        Link link = new Link(longUrl);
-
-        if (authentication != null) {
-            User loggedUser = userRepository.findByEmail(authentication.getName());
-            link.setUserId(loggedUser.getId());
-        }
-
-        link = linkRepository.save(link);
-        log.info("save {}", link);
-
-        return link;
-    }
-
     @PostMapping(value = "/link")
-
     public String addLinkFromHomepage(@ModelAttribute Link linkDto, Model model, Authentication authentication) {
 
-        Link link = addLink(linkDto.getLongUrl(), authentication);
+        Link link = linkService.addLink(linkDto.getLongUrl(), authentication);
 
         model.addAttribute("link", link);
 
@@ -68,10 +44,9 @@ public class WebController {
     }
 
     @PostMapping(value = "/user/link")
-    // from a index page (logged and not logged users)
     public String addLinkFromDashboard(@ModelAttribute Link linkDto, Model model, Authentication authentication) {
 
-        Link link = addLink(linkDto.getLongUrl(), authentication);
+        Link link = linkService.addLink(linkDto.getLongUrl(), authentication);
 
         model.addAttribute("link", link);
 
