@@ -16,11 +16,6 @@ public class APIController {
 
     private static final String template = "{\"shortUrl\": \"%s\", \"longUrl\": \"%s\"}";
 
-    @Bean
-    private LinkService apilinkService() {
-        return new LinkService();
-    }
-
     @Autowired
     private LinkService linkService;
 

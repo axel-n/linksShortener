@@ -61,7 +61,9 @@ public class WebControllerTest extends DatabaseTest {
         // goto to longUrl by shortUrl
          final String WRONG_SHORT_URL = "abc";
         try {
-            this.mockMvc.perform(get("/" + WRONG_SHORT_URL)).andDo(print()).andExpect(status().isNotFound());
+            this.mockMvc.perform(get("/" + WRONG_SHORT_URL))
+                    .andDo(print())
+                    .andExpect(status().isNotFound());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,10 +75,14 @@ public class WebControllerTest extends DatabaseTest {
         Link link = new Link(TEST_URL1);
         link = linkRepository.save(link);
 
-        String shorlUrl = link.getShortUrl();
+        System.out.println(link);
+
+        String shortlUrl = link.getShortUrl();
 
         try {
-            this.mockMvc.perform(get("/" + shorlUrl)).andDo(print()).andExpect(status().is3xxRedirection());
+            this.mockMvc.perform(get("/" + shortlUrl))
+                    .andDo(print())
+                    .andExpect(status().is3xxRedirection());
         } catch (Exception e) {
             e.printStackTrace();
         }

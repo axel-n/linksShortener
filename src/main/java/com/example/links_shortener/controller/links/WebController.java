@@ -1,5 +1,6 @@
 package com.example.links_shortener.controller.links;
 
+import com.example.links_shortener.dto.LinkDto;
 import com.example.links_shortener.model.Link;
 import com.example.links_shortener.service.LinkService;
 import org.slf4j.Logger;
@@ -13,15 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 
+import javax.validation.Valid;
+
 @Controller
 public class WebController {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
-
-    @Bean
-    private LinkService webLinkService() {
-        return new LinkService();
-    }
 
     @Autowired
     private LinkService linkService;
@@ -34,7 +32,7 @@ public class WebController {
         return "home";
     }
     @PostMapping(value = "/link")
-    public String addLinkFromHomepage(@ModelAttribute Link linkDto, Model model, Authentication authentication) {
+    public String addLinkFromHomepage(@Valid LinkDto linkDto, Model model, Authentication authentication) {
 
         Link link = linkService.addLink(linkDto.getLongUrl(), authentication);
 
@@ -44,7 +42,7 @@ public class WebController {
     }
 
     @PostMapping(value = "/user/link")
-    public String addLinkFromDashboard(@ModelAttribute Link linkDto, Model model, Authentication authentication) {
+    public String addLinkFromDashboard(@Valid LinkDto linkDto, Model model, Authentication authentication) {
 
         Link link = linkService.addLink(linkDto.getLongUrl(), authentication);
 
