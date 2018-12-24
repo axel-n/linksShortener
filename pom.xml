@@ -21,7 +21,7 @@
 		<h2.version>1.4.197</h2.version>
 		<junit.version>4.12</junit.version>
 		<javax.persistence-api.version>2.2</javax.persistence-api.version>
-
+		<json-path.version>2.4.0</json-path.version>
 	</properties>
 
 	<parent>
@@ -145,6 +145,12 @@
 			<version>${spring.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<scope>test</scope>
+			<version>${json-path.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

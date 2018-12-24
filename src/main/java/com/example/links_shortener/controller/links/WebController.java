@@ -19,7 +19,7 @@ public class WebController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Bean
-    private LinkService linkService() {
+    private LinkService webLinkService() {
         return new LinkService();
     }
 
