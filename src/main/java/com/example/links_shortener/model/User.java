@@ -6,7 +6,11 @@ import java.util.Formatter;
 
 @Entity
 @Table(name = "users")
-public class User extends AbstractPersistable<Integer> {
+public class User {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
 
     private String username;
     private String password;
@@ -56,6 +60,14 @@ public class User extends AbstractPersistable<Integer> {
 
     public String getRole() {
         return role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
