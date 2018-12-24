@@ -13,14 +13,15 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<!--libs -->
-		<spring-boot-starter.version>2.1.1.RELEASE</spring-boot-starter.version>
+		<spring-boot.version>2.1.1.RELEASE</spring-boot.version>
+		<spring.version>5.1.2.RELEASE</spring.version>
 		<thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
 		<thymeleaf-extras-springsecurity5.version>3.0.4.RELEASE</thymeleaf-extras-springsecurity5.version>
 		<log4j.version>2.11.1</log4j.version>
 		<h2.version>1.4.197</h2.version>
 		<junit.version>4.12</junit.version>
 		<javax.persistence-api.version>2.2</javax.persistence-api.version>
-		<spring-security.version>5.1.2.RELEASE</spring-security.version>
+
 	</properties>
 
 	<parent>
@@ -35,38 +36,38 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>${spring-security.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>${spring-security.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${spring-security.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>${spring-boot-starter.version}</version>
+			<version>${spring-boot.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>
-			<version>${spring-boot-starter.version}</version>
+			<version>${spring-boot.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
-			<version>${spring-boot-starter.version}</version>
+			<version>${spring-boot.version}</version>
 		</dependency>
 
 		<!-- db -->
@@ -80,14 +81,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
-			<version>${spring-boot-starter.version}</version>
+			<version>${spring-boot.version}</version>
 		</dependency>
 
 		<!-- ui -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>${spring-boot-starter.version}</version>
+			<version>${spring-boot.version}</version>
 		</dependency>
 
 		<dependency>
@@ -105,7 +106,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-			<version>${spring-boot-starter.version}</version>
+			<version>${spring-boot.version}</version>
 		</dependency>
 
 		<!-- other -->
@@ -134,14 +135,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<version>${spring-boot-starter.version}</version>
+			<version>${spring-boot.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
-			<version>${spring-security.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 
 	</dependencies>
@@ -151,7 +152,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring-boot-starter.version}</version>
+				<version>${spring-boot.version}</version>
 			</plugin>
 		</plugins>
 	</build>

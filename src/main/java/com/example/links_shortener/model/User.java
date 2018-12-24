@@ -14,6 +14,7 @@ public class User extends AbstractPersistable<Integer> {
     private boolean enabled;
     private String role;
 
+    @Transient
     private final String DEFAULT_ROLE = "ROLE_USER";
 
     // default constructor for spring. don't remove
