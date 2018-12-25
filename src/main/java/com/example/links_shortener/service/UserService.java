@@ -7,16 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 @Service
 public class UserService implements IUserService {
 
     @Autowired
     private UserRepository repository;
 
-    @Transactional
-    @Override
     public User registerNewUserAccount(UserDto accountDto) {
 
         if (emailExist(accountDto.getEmail())) {
@@ -42,6 +38,10 @@ public class UserService implements IUserService {
             return true;
         }
         return false;
+    }
+
+    public User findByEmail(String email) {
+        return repository.findByEmail(email);
     }
 
 }

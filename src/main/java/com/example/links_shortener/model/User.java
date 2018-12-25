@@ -71,12 +71,8 @@ public class User {
 
     @Override
     public String toString() {
-
-        Formatter formatter = new Formatter();
-        formatter.format("User {id: %s,username: %s, password: %s, email: %s}",
-                getId(), username, password, email);
-
-        return formatter.toString();
+        return String.format("{id: %s,username: %s, password: %s, email: %s}",
+                id, username, password, email);
     }
 }
 

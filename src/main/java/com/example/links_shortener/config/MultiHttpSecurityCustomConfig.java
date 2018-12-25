@@ -73,7 +73,7 @@ public class MultiHttpSecurityCustomConfig {
                     .and()
                 .authorizeRequests()
                     .antMatchers("/api/link").permitAll()
-                    .antMatchers("/api/user/**").authenticated()
+                    .antMatchers("/api/user").hasRole("USER")
                     .and()
                 .formLogin()
                     //.loginPage("/api/login")

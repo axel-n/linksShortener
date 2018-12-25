@@ -45,7 +45,7 @@
                     <p class="card-text">request
                         <code>curl -i -X POST
                             -d username=email -d password=pass
-                            http://localhost:8080/api/login
+                            http://localhost:8080/user/login
                             -c cookies.txt
                         </code>
                     </p>
@@ -72,6 +72,21 @@
                             {"shortUrl": "xxx", "longUrl": "yyy", "clicks": value, "created": date}
                         </code>
                     </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">view your links</h5>
+
+                    <p class="card-text">request
+                        <code>curl -i --header "Accept:application/json"
+                            -X POST -b cookies.txt
+                            http://localhost:8080/api/user
+                        </code>
+                    </p>
+
+                    <p class="card-text">response array links</p>
                 </div>
             </div>
 

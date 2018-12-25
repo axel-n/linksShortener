@@ -88,9 +88,8 @@ public class Link {
 
     @Override
     public String toString() {
-        Formatter formatter = new Formatter();
-        formatter.format("Link {id: %s, shortUrl: %s, longUrl: %s, created: %s, userId: %s, clicks: %s}", getId(), shortUrl, longUrl, created, userId, clicks);
-        return formatter.toString();
+        return String.format("{id: %s, shortUrl: %s, longUrl: %s, created: %s, userId: %s, clicks: %s}",
+                id, shortUrl, longUrl, created, userId, clicks);
     }
 
     private String generateShortUrl() {

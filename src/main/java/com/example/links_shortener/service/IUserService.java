@@ -6,4 +6,5 @@ import com.example.links_shortener.model.User;
 
 public interface IUserService {
     User registerNewUserAccount(UserDto accountDto);
+    User findByEmail(String email);
 }
