@@ -1,6 +1,6 @@
 package com.example.links_shortener.controller.security;
 
-import com.example.links_shortener.core.LinkRepository;
+import com.example.links_shortener.config.TypeMessage;
 import com.example.links_shortener.core.dao.UserRepository;
 import com.example.links_shortener.core.dao.LinkRepository;
 import com.example.links_shortener.core.dto.UserDto;
@@ -60,7 +60,7 @@ public class SecurityController {
 
             if (registered == null) {
 
-                message = new Message("warning", "email already registered!");
+                message = new Message(TypeMessage.WARNING, "email already registered!");
                 messages.add(message.getMessage());
                 model.addAttribute("messages", messages);
 

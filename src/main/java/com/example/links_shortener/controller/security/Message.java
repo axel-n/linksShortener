@@ -1,5 +1,7 @@
 package com.example.links_shortener.controller.security;
 
+import com.example.links_shortener.config.TypeMessage;
+
 import java.util.HashMap;
 
 public class Message {
@@ -8,15 +10,16 @@ public class Message {
     private final String KEY_TYPE = "type";
     private final String KEY_VALUE = "text";
 
-    public Message(String type, String value) {
+    public Message(TypeMessage type, String value) {
         this.message = new HashMap<>();
-        this.message.put(KEY_TYPE, type);
+        this.message.put(KEY_TYPE, type.toString());
         this.message.put(KEY_VALUE, value);
     }
 
     public HashMap<String, String> getMessage() {
         return this.message;
     }
+
 
 
 }
