@@ -27,7 +27,7 @@ public class UserService implements IUserService {
         user.setUsername(accountDto.getUsername());
         user.setEnabled(true);
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String  encodedPassword = encoder.encode(accountDto.getPassword());
 
         user.setPassword(encodedPassword);

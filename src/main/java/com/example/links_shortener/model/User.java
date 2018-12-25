@@ -1,8 +1,7 @@
 package com.example.links_shortener.model;
-import org.springframework.data.jpa.domain.AbstractPersistable;
+
 import javax.persistence.*;
 import java.util.Formatter;
-
 
 @Entity
 @Table(name = "users")
