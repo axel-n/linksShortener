@@ -1,11 +1,12 @@
 package com.example.links_shortener.controller.security;
 
-import com.example.links_shortener.dao.LinkRepository;
-import com.example.links_shortener.dao.UserRepository;
-import com.example.links_shortener.dto.UserDto;
-import com.example.links_shortener.model.Link;
-import com.example.links_shortener.model.User;
-import com.example.links_shortener.service.IUserService;
+import com.example.links_shortener.core.LinkRepository;
+import com.example.links_shortener.core.dao.UserRepository;
+import com.example.links_shortener.core.dao.LinkRepository;
+import com.example.links_shortener.core.dto.UserDto;
+import com.example.links_shortener.core.model.Link;
+import com.example.links_shortener.core.model.User;
+import com.example.links_shortener.core.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.example.links_shortener;
 
-import com.example.links_shortener.service.LinkService;
+import com.example.links_shortener.core.service.LinkService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

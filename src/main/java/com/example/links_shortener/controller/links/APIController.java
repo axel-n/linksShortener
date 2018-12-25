@@ -1,10 +1,10 @@
 package com.example.links_shortener.controller.links;
 
-import com.example.links_shortener.dto.LinkDto;
-import com.example.links_shortener.model.Link;
-import com.example.links_shortener.model.User;
-import com.example.links_shortener.service.LinkService;
-import com.example.links_shortener.service.UserService;
+import com.example.links_shortener.core.dto.LinkDto;
+import com.example.links_shortener.core.model.Link;
+import com.example.links_shortener.core.model.User;
+import com.example.links_shortener.core.service.LinkService;
+import com.example.links_shortener.core.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

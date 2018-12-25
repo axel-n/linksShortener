@@ -1,7 +1,6 @@
-package com.example.links_shortener.model;
+package com.example.links_shortener.core.model;
 
 import javax.persistence.*;
-import java.util.Formatter;
 
 @Entity
 @Table(name = "users")

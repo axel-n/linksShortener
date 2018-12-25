@@ -1,9 +1,8 @@
-package com.example.links_shortener.model;
+package com.example.links_shortener.core.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Formatter;
 import java.util.Random;
 
 @Entity

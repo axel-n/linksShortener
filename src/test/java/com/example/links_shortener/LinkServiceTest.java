@@ -1,8 +1,8 @@
-package com.example.links_shortener.dao;
+package com.example.links_shortener.core.dao;
 
-import com.example.links_shortener.model.Link;
+import com.example.links_shortener.core.model.Link;
 
-import com.example.links_shortener.model.User;
+import com.example.links_shortener.core.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

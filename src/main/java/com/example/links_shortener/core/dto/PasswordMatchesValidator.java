@@ -1,4 +1,4 @@
-package com.example.links_shortener.dto;
+package com.example.links_shortener.core.dto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

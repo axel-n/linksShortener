@@ -1,12 +1,12 @@
-package com.example.links_shortener.service;
+package com.example.links_shortener.core.service;
 
 
 import java.util.ArrayList;
 
 import java.util.List;
 
-import com.example.links_shortener.dao.UserRepository;
-import com.example.links_shortener.model.User;
+import com.example.links_shortener.core.dao.UserRepository;
+import com.example.links_shortener.core.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,9 +1,8 @@
 package com.example.links_shortener.controller.links;
 
-import com.example.links_shortener.model.Link;
-import com.example.links_shortener.service.LinkService;
+import com.example.links_shortener.core.model.Link;
+import com.example.links_shortener.core.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

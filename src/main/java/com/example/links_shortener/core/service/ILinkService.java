@@ -1,6 +1,6 @@
-package com.example.links_shortener.service;
+package com.example.links_shortener.core.service;
 
-import com.example.links_shortener.model.Link;
+import com.example.links_shortener.core.model.Link;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
