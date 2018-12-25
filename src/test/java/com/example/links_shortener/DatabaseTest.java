@@ -1,8 +1,12 @@
-package com.example.links_shortener.dao;
+package com.example.links_shortener;
 
 import org.junit.Before;
+
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.junit4.SpringRunner;
 
 
 public class DatabaseTest {

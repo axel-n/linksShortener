@@ -1,46 +1,84 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{base/layout}" th:with="title='api documentation'">
 
-    <body>
+<body>
 
-        <div layout:fragment="content">
+<div layout:fragment="content">
 
-            <div class="container bg-light mt-3 p-3">
+    <div class="container bg-light mt-3 p-3">
 
-                <h2>api documentstion</h2>
+        <h2>api documentstion</h2>
 
-                <div class="card p-3">
-                    <h3>Getters</h3>
+        <div class="p-3 mb-4">
+            <h3>For none authorized users</h3>
 
-                    <ul>
-                        <li>
-                            all links
-                            <code>/api/links/</code>
-                        </li>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">add link</h5>
 
-                        <li>
-                            info about 1 links
-                            <code>/api/links/{shortUrl}</code>
-                        </li>
-                    </ul>
+                    <p class="card-text">request
+                        <code>
+                            curl -i --header "Accept:application/json"
+                            -X POST http://localhost:8080/api/link
+                            -d "longUrl=some_url.com"
+                        </code>
+
+                    <p class="card-text">response
+                        <code>
+                            {"shortUrl": "xxx", "longUrl": "yyy"}
+                        </code>
+                    </p>
                 </div>
-
-                <div class="card p-3 mt-3">
-                    <h3>Setters</h3>
-
-                    <p>in progress...</p>
-                </div>
-
-
             </div>
         </div>
 
+        <div class="p-3">
+            <h3>For authorized users</h3>
 
-    </body>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">login. save token to cookie</h5>
+
+                    <p class="card-text">request
+                        <code>curl -i -X POST
+                            -d username=email -d password=pass
+                            http://localhost:8080/api/login
+                            -c cookies.txt
+                        </code>
+                    </p>
+                    <p class="card-text">
+                        response: if success code - 302
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">add link with use cookie</h5>
+
+                    <p class="card-text">request
+                        <code>curl -i --header "Accept:application/json"
+                            -X POST -b cookies.txt
+                            http://localhost:8080/api/link
+                            -d "longUrl=some_url.com"
+                        </code>
+                    </p>
+
+                    <p class="card-text">response
+                        <code>
+                            {"shortUrl": "xxx", "longUrl": "yyy", "clicks": value, "created": date}
+                        </code>
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</body>
 </html>

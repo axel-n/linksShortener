@@ -1,12 +1,15 @@
 package com.example.links_shortener.model;
-import org.springframework.data.jpa.domain.AbstractPersistable;
+
 import javax.persistence.*;
 import java.util.Formatter;
 
-
 @Entity
 @Table(name = "users")
-public class User extends AbstractPersistable<Integer> {
+public class User {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
 
     private String username;
     private String password;
@@ -14,6 +17,7 @@ public class User extends AbstractPersistable<Integer> {
     private boolean enabled;
     private String role;
 
+    @Transient
     private final String DEFAULT_ROLE = "ROLE_USER";
 
     // default constructor for spring. don't remove
@@ -55,6 +59,14 @@ public class User extends AbstractPersistable<Integer> {
 
     public String getRole() {
         return role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

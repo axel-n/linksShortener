@@ -1,5 +1,6 @@
-package com.example.links_shortener.dao;
+package com.example.links_shortener;
 
+import com.example.links_shortener.dao.LinkRepository;
 import com.example.links_shortener.model.Link;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,12 +30,14 @@ public class WebControllerTest extends DatabaseTest {
     @Test
     public void openLinkAndRedirect() {
 
-        Link link1 = new Link(TEST_URL1);
+        Link link = new Link(TEST_URL1);
+
+        link = linkRepository.save(link);
 
         // receive user from browser/api (before save in bd)
-        String resultShortUrl = linkRepository.save(link1).getShortUrl();
+        String resultShortUrl = link.getShortUrl();
 
-        int clickBeforeOpen  = link1.getClicks();
+        int clickBeforeOpen  = link.getClicks();
         assertEquals(0, clickBeforeOpen);
 
         // goto to longUrl by shortUrl
@@ -50,7 +53,7 @@ public class WebControllerTest extends DatabaseTest {
     }
 
     @Test
-    public void LinkNotFound() {
+    public void linkNotFound() {
 
         Link link1 = new Link(TEST_URL1);
         linkRepository.save(link1);
@@ -58,22 +61,28 @@ public class WebControllerTest extends DatabaseTest {
         // goto to longUrl by shortUrl
          final String WRONG_SHORT_URL = "abc";
         try {
-            this.mockMvc.perform(get("/" + WRONG_SHORT_URL)).andDo(print()).andExpect(status().isNotFound());
+            this.mockMvc.perform(get("/" + WRONG_SHORT_URL))
+                    .andDo(print())
+                    .andExpect(status().isNotFound());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void CheckMoveToLongUrl() {
+    public void checkMoveToLongUrl() {
 
-        Link link1 = new Link();
+        Link link = new Link(TEST_URL1);
+        link = linkRepository.save(link);
 
-        link1.setLongUrl(TEST_URL1);
-        String shorlUrl = linkRepository.save(link1).getShortUrl();
+        System.out.println(link);
+
+        String shortlUrl = link.getShortUrl();
 
         try {
-            this.mockMvc.perform(get("/" + shorlUrl)).andDo(print()).andExpect(status().is3xxRedirection());
+            this.mockMvc.perform(get("/" + shortlUrl))
+                    .andDo(print())
+                    .andExpect(status().is3xxRedirection());
         } catch (Exception e) {
             e.printStackTrace();
         }

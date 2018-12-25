@@ -3,7 +3,6 @@ package com.example.links_shortener.dto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Formatter;
-import com.example.links_shortener.dto.PasswordMatches;
 
 /**
 * Validate user data

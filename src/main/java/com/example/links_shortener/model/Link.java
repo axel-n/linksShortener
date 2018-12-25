@@ -1,8 +1,5 @@
 package com.example.links_shortener.model;
 
-
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -11,7 +8,11 @@ import java.util.Random;
 
 @Entity
 @Table(name = "links")
-public class Link extends AbstractPersistable<Integer> {
+public class Link {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
 
     private int userId;
 
@@ -77,6 +78,14 @@ public class Link extends AbstractPersistable<Integer> {
         this.clicks++;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
     @Override
     public String toString() {
         Formatter formatter = new Formatter();
@@ -93,5 +102,4 @@ public class Link extends AbstractPersistable<Integer> {
         }
         return idBuilder.toString();
     }
-
 }
