@@ -11,5 +11,4 @@ public interface LinkRepository extends JpaRepository<Link, Integer> {
 
     Link findByShortUrl(String shortUrl);
     List<Link> findByUserId (int userId);
-    List<Link> findAll();
 }
