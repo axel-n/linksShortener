@@ -2,7 +2,7 @@ package com.example.links_shortener.controller.links;
 
 import com.example.links_shortener.core.dto.LinkDto;
 import com.example.links_shortener.core.model.Link;
-import com.example.links_shortener.core.service.ILinkService;
+import com.example.links_shortener.core.service.LinkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class WebController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private ILinkService linkService;
+    private LinkService linkService;
 
     @RequestMapping(value="/")
     public String index(Model model) {

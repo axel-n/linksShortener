@@ -1,13 +1,11 @@
 package com.example.links_shortener.controller.security;
 
 import com.example.links_shortener.config.TypeMessage;
-import com.example.links_shortener.core.dao.UserRepository;
-import com.example.links_shortener.core.dao.LinkRepository;
 import com.example.links_shortener.core.dto.UserDto;
 import com.example.links_shortener.core.model.Link;
 import com.example.links_shortener.core.model.User;
-import com.example.links_shortener.core.service.ILinkService;
-import com.example.links_shortener.core.service.IUserService;
+import com.example.links_shortener.core.service.LinkService;
+import com.example.links_shortener.core.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +31,10 @@ public class SecurityController {
     private Message message;
 
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @Autowired
-    private ILinkService linkService;
+    private LinkService linkService;
 
     @RequestMapping(value = "/user/registration")
     public String showRegistrationForm(Model model) {

@@ -3,8 +3,8 @@ package com.example.links_shortener.controller.links;
 import com.example.links_shortener.core.dto.LinkDto;
 import com.example.links_shortener.core.model.Link;
 import com.example.links_shortener.core.model.User;
-import com.example.links_shortener.core.service.ILinkService;
-import com.example.links_shortener.core.service.IUserService;
+import com.example.links_shortener.core.service.LinkService;
+import com.example.links_shortener.core.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,10 @@ public class APIController {
     private Link link;
 
     @Autowired
-    private ILinkService linkService;
+    private LinkService linkService;
 
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @PostMapping(value = "${spring.data.rest.base-path}/link", produces = MediaType.APPLICATION_JSON_VALUE)
     public String addLink(@Valid final LinkDto linkDto, Authentication authentication) {
