@@ -2,6 +2,7 @@ package com.example.links_shortener;
 
 import com.example.links_shortener.core.dao.LinkRepository;
 import com.example.links_shortener.core.model.Link;
+import com.example.links_shortener.core.service.LinkService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class WebControllerTest extends DatabaseTest {
     private static final String TEST_URL1 = "https://ya.ru";
 
     @Autowired
-    private LinkRepository linkRepository;
+    private LinkService linkService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -32,7 +33,7 @@ public class WebControllerTest extends DatabaseTest {
 
         Link link = new Link(TEST_URL1);
 
-        link = linkRepository.save(link);
+        link = linkService.save(link);
 
         // receive user from browser/api (before save in bd)
         String resultShortUrl = link.getShortUrl();
@@ -48,7 +49,7 @@ public class WebControllerTest extends DatabaseTest {
         }
 
         // and backend increment statistic clicks
-        int clickAfterOpen = linkRepository.findByShortUrl(resultShortUrl).getClicks();
+        int clickAfterOpen = linkService.findByShortUrl(resultShortUrl).getClicks();
         assertEquals(1, clickAfterOpen);
     }
 
@@ -56,7 +57,7 @@ public class WebControllerTest extends DatabaseTest {
     public void linkNotFound() {
 
         Link link1 = new Link(TEST_URL1);
-        linkRepository.save(link1);
+        linkService.save(link1);
 
         // goto to longUrl by shortUrl
          final String WRONG_SHORT_URL = "abc";
@@ -73,7 +74,7 @@ public class WebControllerTest extends DatabaseTest {
     public void checkMoveToLongUrl() {
 
         Link link = new Link(TEST_URL1);
-        link = linkRepository.save(link);
+        link = linkService.save(link);
 
         System.out.println(link);
 
