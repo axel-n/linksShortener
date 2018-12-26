@@ -43,10 +43,6 @@ public class LinkService implements ILinkService {
         return linkRepository.findByUserId(userId);
     }
 
-    public List<Link> findAll(){
-        return linkRepository.findAll();
-    }
-
     public Link save(Link link) {
         return linkRepository.save(link);
     }

@@ -60,11 +60,10 @@ public class UserDto {
 
     @Override
     public String toString() {
-        Formatter formatter = new Formatter();
-        formatter.format("%n username: %s, password: %s, matchingPassword: %s, email: %s",
+
+        return String.format("{username: %s, password: %s, matchingPassword: %s, email: %s}",
                 username, password, matchingPassword, email);
 
-        return formatter.toString();
     }
 
 }

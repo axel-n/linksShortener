@@ -44,4 +44,8 @@ public class UserService implements IUserService {
         return repository.findByEmail(email);
     }
 
+    public User save(User user){
+        return repository.save(user);
+    }
+
 }

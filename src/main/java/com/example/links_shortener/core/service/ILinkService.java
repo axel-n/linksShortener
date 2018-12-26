@@ -11,6 +11,5 @@ public interface ILinkService {
 
     Link findByShortUrl(String shortUrl);
     List<Link> findByUserId (int userId);
-    List<Link> findAll();
     Link save(Link link);
 }

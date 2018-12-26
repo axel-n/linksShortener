@@ -6,6 +6,7 @@ import com.example.links_shortener.core.dao.LinkRepository;
 import com.example.links_shortener.core.dto.UserDto;
 import com.example.links_shortener.core.model.Link;
 import com.example.links_shortener.core.model.User;
+import com.example.links_shortener.core.service.ILinkService;
 import com.example.links_shortener.core.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,10 +36,7 @@ public class SecurityController {
     private IUserService userService;
 
     @Autowired
-    private LinkRepository linkRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    private ILinkService linkService;
 
     @RequestMapping(value = "/user/registration")
     public String showRegistrationForm(Model model) {
@@ -74,9 +72,9 @@ public class SecurityController {
     @RequestMapping("/user/dashboard")
     public String dashboard(Authentication authentication, Model model) {
 
-        int userId = userRepository.findByEmail(authentication.getName()).getId();
+        int userId = userService.findByEmail(authentication.getName()).getId();
 
-        model.addAttribute("savedLinks", linkRepository.findByUserId(userId));
+        model.addAttribute("savedLinks", linkService.findByUserId(userId));
 
         model.addAttribute("link", new Link());
 

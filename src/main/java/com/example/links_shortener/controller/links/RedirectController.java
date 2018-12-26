@@ -1,7 +1,7 @@
 package com.example.links_shortener.controller.links;
 
 import com.example.links_shortener.core.model.Link;
-import com.example.links_shortener.core.service.LinkService;
+import com.example.links_shortener.core.service.ILinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RedirectController {
 
     @Autowired
-    private LinkService linkService;
+    private ILinkService linkService;
 
     @GetMapping("/{shortUrl}")
     @ResponseBody
