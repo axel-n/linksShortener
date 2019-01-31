@@ -2,15 +2,15 @@ package com.example.links_shortener.controller.links;
 
 import com.example.links_shortener.core.dto.LinkDto;
 import com.example.links_shortener.core.model.Link;
-import com.example.links_shortener.core.service.LinkService;
+import com.example.links_shortener.core.service.LinkServiceImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.ui.Model;
 
 import javax.validation.Valid;
 
@@ -20,7 +20,7 @@ public class WebController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private LinkService linkService;
+    private LinkServiceImp linkService;
 
     @RequestMapping(value="/")
     public String index(Model model) {

@@ -4,8 +4,8 @@ import com.example.links_shortener.config.TypeMessage;
 import com.example.links_shortener.core.dto.UserDto;
 import com.example.links_shortener.core.model.Link;
 import com.example.links_shortener.core.model.User;
-import com.example.links_shortener.core.service.LinkService;
-import com.example.links_shortener.core.service.UserService;
+import com.example.links_shortener.core.service.LinkServiceImp;
+import com.example.links_shortener.core.service.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +31,10 @@ public class SecurityController {
     private Message message;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
-    private LinkService linkService;
+    private LinkServiceImp linkService;
 
     @RequestMapping(value = "/user/registration")
     public String showRegistrationForm(Model model) {
